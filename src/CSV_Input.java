@@ -15,7 +15,7 @@ public class CSV_Input {
     private static HashMap<String, CommercialParcel> commercialMap = new HashMap<>();
 
 
-    String[] CSV_HEADERS = {};
+    //String[] CSV_HEADERS = {};
 
     public static void read_CSV_File() throws IOException{
 
