@@ -1,3 +1,5 @@
+package search;
+
 public class SearchParameters {
     /*
     Search parameters used as an object to narrow down search results.

@@ -18,7 +18,7 @@ public class CommercialParcel extends Parcel{
         parcelID = pid;
     }
 
-    // prints parcel information to console
+    // prints CommercialParcel information to console
     public void display(){
         System.out.println("Parcel ID (PID): " + parcelID);
         System.out.println("Address: " + address);

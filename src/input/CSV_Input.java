@@ -1,3 +1,5 @@
+package input;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import parcels.CommercialParcel;
@@ -37,7 +39,12 @@ public class CSV_Input {
 
             // creates new ResidentialParcel object, sets values, and adds it to residentialMap
             if(record.get(11).contains("Residential")){
-                ResidentialParcel rp = new ResidentialParcel();
+
+                //Create ResidentialParcel object using downcasting
+                Parcel p = new ResidentialParcel();
+                ResidentialParcel rp = (ResidentialParcel)p;
+
+                //set ResidentialParcel variables
                 rp.setParcelID(record.get(3));
                 rp.setAddress(record.get(58));
                 rp.setType(record.get(11));
@@ -52,7 +59,11 @@ public class CSV_Input {
 
             // creates new CommercialParcel object, sets values, adds it to CommercialMap
             else if(record.get(11).contains("Commercial")){
+
+                // create CommercialParcel object without using downcasting
                 CommercialParcel cp = new CommercialParcel();
+
+                // set CommercialParcel variables
                 cp.setParcelID(record.get(3));
                 cp.setAddress(record.get(58));
                 cp.setPropertyValue((record.get(19)));

@@ -1,6 +1,6 @@
-import parcels.CommercialParcel;
+package search;
+import input.CSV_Input;
 import parcels.Parcel;
-import parcels.ResidentialParcel;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ public class ParcelSearch {
     /**
      * Searches through a given Parcel HashMap and displays parcel info
      * for parcels with matching parameters.
-     * @param param: SearchParameters object
+     * @param param: search.SearchParameters object
      * @param parcelMap: HashMap with String (PID)/Parcel pairs
      */
     private static void executeSearch(SearchParameters param, HashMap<String, Parcel> parcelMap){
