@@ -8,34 +8,59 @@ import java.util.Scanner;
 
 public class ParcelSearch {
 
-    public static void executeSearch(SearchParameters param){
+    /**
+     * Searches through a given Parcel HashMap and displays parcel info
+     * for parcels with matching parameters.
+     * @param param: SearchParameters object
+     * @param parcelMap: HashMap with String (PID)/Parcel pairs
+     */
+    private static void executeSearch(SearchParameters param, HashMap<String, Parcel> parcelMap){
+        for(Parcel p : parcelMap.values()){
 
+            // if parcelID parameter specified and it doesn't match given parcelID, continue
+            if((param.getParcelID() != null) &&
+                    !(p.getParcelID().equals(param.getParcelID()))){
+                continue;
+            }
+
+            // if address parameter specified and it doesn't match given address, continue
+            else if((param.getAddress() != null) &&
+                    !(p.getAddress().toLowerCase().contains(param.getAddress().toLowerCase()))){
+                continue;
+            }
+
+            // if no parameters specified, or if parameters met, display Parcel info
+            System.out.println();
+            p.display();
+        }
     }
 
     public static void main(String[] args) throws IOException {
 
         CSV_Input bostonParcels = new CSV_Input();
         bostonParcels.read_CSV_File();              // reads commercial and residential parcel info into HashMaps
-        HashMap<String, ResidentialParcel> bostonResidentialMap = bostonParcels.getResidentialMap();
-        HashMap<String, CommercialParcel> bostonCommercialMap = bostonParcels.getCommercialMap();
+        HashMap<String, Parcel> bostonResidentialMap = bostonParcels.getResidentialMap();
+        HashMap<String, Parcel> bostonCommercialMap = bostonParcels.getCommercialMap();
 
+        // Create Scanner object to obtain user parameter input
         Scanner scan = new Scanner(System.in);
         String input;
-        SearchParameters userParameters = new SearchParameters();
+        SearchParameters userParameters = new SearchParameters();   // will hold user specified search info
 
         boolean done = false;
         while (!done){
 
+            // prompt user for the land use type
             System.out.println("Please Enter the type of property you would like to purchase:");
             System.out.println("    1. Commercial");
             System.out.println("    2. Residential");
             input = scan.nextLine();
 
             if (input.equals("1") | input.toLowerCase().equals("commercial")){
-                userParameters.setLandUseType("Commercial");
+                userParameters.setLandUseType("Commercial");    // sets landUseType parameter to "Commercial"
             }
             else if (input.equals("2") | input.toLowerCase().equals("residential")){
-                userParameters.setLandUseType("Residential");
+                userParameters.setLandUseType("Residential");   // sets landUseType parameter to "Residential"
             }
             else{
                 System.out.println("Invalid entry. Please enter a valid response.");
@@ -49,9 +74,9 @@ public class ParcelSearch {
                         " Otherwise, enter 'continue'.");
                 System.out.println("    1. Parcel ID");
                 System.out.println("    2. Address");
-
                 input = scan.nextLine();        // get user response
 
+                // update parcelID and/or address search parameters
                 try{
                     if(input.equals("1") | input.toLowerCase().equals("parcel id")){
                         System.out.println("Enter the desired Parcel ID: ");
@@ -73,43 +98,16 @@ public class ParcelSearch {
                 }
             }
 
-        done = true;
+        done = true;    // exit while loop
 
         }
 
+        // Searches for and displays parcels with matching criteria
         if(userParameters.getLandUseType().equals("Residential")){
-            for(ResidentialParcel rp : bostonResidentialMap.values()){
-
-                if((userParameters.getParcelID() != null) &&
-                        !(rp.getParcelID().equals(userParameters.getParcelID()))){
-                    continue;
-                }
-                else if((userParameters.getAddress() != null) &&
-                        !(rp.getAddress().toLowerCase().contains(userParameters.getAddress().toLowerCase()))){
-                    continue;
-                }
-                System.out.println();
-                rp.display();
-            }
+            executeSearch(userParameters, bostonResidentialMap);
         }
         else if(userParameters.getLandUseType().equals("Commercial")){
-            for(CommercialParcel cp : bostonCommercialMap.values()){
-
-                if((userParameters.getParcelID() != null) &&
-                        !(cp.getParcelID().equals(userParameters.getParcelID()))){
-                    continue;
-                }
-                else if((userParameters.getAddress() != null) &&
-                        !(cp.getAddress().toLowerCase().contains(userParameters.getAddress().toLowerCase()))){
-                    continue;
-                }
-                System.out.println();
-                cp.display();
-            }
+            executeSearch(userParameters, bostonCommercialMap);
         }
-
-
-
     }
-
 }

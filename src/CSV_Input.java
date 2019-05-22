@@ -11,8 +11,8 @@ import java.util.HashMap;
 
 public class CSV_Input {
 
-    private static HashMap<String, ResidentialParcel> residentialMap = new HashMap<>();
-    private static HashMap<String, CommercialParcel> commercialMap = new HashMap<>();
+    private static HashMap<String, Parcel> residentialMap = new HashMap<>();
+    private static HashMap<String, Parcel> commercialMap = new HashMap<>();
 
     // default constructor
     public CSV_Input(){}
@@ -53,8 +53,8 @@ public class CSV_Input {
     }
 
     // accessor methods for Parcel HashMaps
-    public HashMap<String, ResidentialParcel> getResidentialMap(){return residentialMap;}
-    public HashMap<String, CommercialParcel> getCommercialMap(){return commercialMap;}
+    public HashMap<String, Parcel> getResidentialMap(){return residentialMap;}
+    public HashMap<String, Parcel> getCommercialMap(){return commercialMap;}
 
 
 }
