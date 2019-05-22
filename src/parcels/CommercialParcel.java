@@ -2,6 +2,7 @@ package parcels;
 
 public class CommercialParcel extends Parcel{
 
+    // Parcel Class variables
     protected String parcelID;
     protected String address;
     protected String type = "Commercial";
@@ -17,9 +18,7 @@ public class CommercialParcel extends Parcel{
         parcelID = pid;
     }
 
-    /**
-     * Prints parcel information to console
-     */
+    // prints parcel information to console
     public void display(){
         System.out.println("Parcel ID (PID): " + parcelID);
         System.out.println("Address: " + address);

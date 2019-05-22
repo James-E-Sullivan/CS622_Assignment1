@@ -2,16 +2,16 @@ package parcels;
 
 public class ResidentialParcel extends Parcel {
 
-
+    // Parcel Class variables
     protected String parcelID;
     protected String address;
     protected String type;
     protected String propertyValue;
     protected String landArea;
 
+    // ResidentialParcel specific variables
     protected String livingArea;
     protected String bedrooms;
-
 
     // default constructor
     public ResidentialParcel(){}
@@ -21,9 +21,7 @@ public class ResidentialParcel extends Parcel {
         parcelID = pid;
     }
 
-    /**
-     * Prints parcel information to console
-     */
+    // Prints parcel information to console
     public void display(){
         System.out.println("Parcel ID (PID): " + parcelID);
         System.out.println("Address: " + address);
@@ -51,7 +49,5 @@ public class ResidentialParcel extends Parcel {
     public String getLandArea(){return landArea;}
     public String getLivingArea(){return livingArea;}
     public String getBedrooms(){return bedrooms;}
-
-
 
 }

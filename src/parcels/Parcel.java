@@ -2,41 +2,36 @@ package parcels;
 
 public abstract class Parcel {
 
+    // Parcel Class variables
     protected String parcelID;
     protected String address;
     protected String type;
     protected String propertyValue;
     protected String landArea;
 
+    // Default constructor
     public Parcel(){}
 
+    // Secondary constructor with known parcelID
     public Parcel(String pid){
         parcelID = pid;
     }
 
+    // method used to print Parcel information to the console
     public abstract void display();
 
-    /*
-    public abstract void setParcelID(String pid);
+    // abstract getter methods
     public abstract String getParcelID();
     public abstract String getAddress();
     public abstract String getType();
-    public abstract Integer getPropertyValue();
-    public abstract Integer getLandArea();
-     */
+    public abstract String getPropertyValue();
+    public abstract String getLandArea();
 
-    // setter methods
-    public void setParcelID(String pid){parcelID = pid;}
-    public void setAddress(String add){address = add;}
-    public void setType(String t){type = t;}
-    public void setPropertyValue(String pv){propertyValue = pv;}
-    public void setLandArea(String la){landArea = la;}
-
-    // accessor methods
-    public String getParcelID(){return parcelID;}
-    public String getAddress(){return address;}
-    public String getType(){return type;}
-    public String getPropertyValue(){return propertyValue;}
-    public String getLandArea(){return landArea;}
+    // abstract setter methods
+    public abstract void setParcelID(String pid);
+    public abstract void setAddress(String add);
+    public abstract void setType(String t);
+    public abstract void setPropertyValue(String pv);
+    public abstract void setLandArea(String la);
 
 }
