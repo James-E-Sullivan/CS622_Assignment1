@@ -21,7 +21,6 @@ public class ParcelSearch {
 
         Scanner scan = new Scanner(System.in);
         String input;
-        Integer landUse;
         SearchParameters userParameters = new SearchParameters();
 
         boolean done = false;
@@ -33,11 +32,9 @@ public class ParcelSearch {
             input = scan.nextLine();
 
             if (input.equals("1") | input.toLowerCase().equals("commercial")){
-                landUse = 1;
                 userParameters.setLandUseType("Commercial");
             }
             else if (input.equals("2") | input.toLowerCase().equals("residential")){
-                landUse = 2;
                 userParameters.setLandUseType("Residential");
             }
             else{
@@ -52,12 +49,6 @@ public class ParcelSearch {
                         " Otherwise, enter 'continue'.");
                 System.out.println("    1. Parcel ID");
                 System.out.println("    2. Address");
-                System.out.println("    3. Property Value");
-                System.out.println("    4. Land Area");
-                if(landUse == 2){
-                    System.out.println("    5. Living Area");
-                    System.out.println("    6. Bedrooms");
-                }
 
                 input = scan.nextLine();        // get user response
 
@@ -69,31 +60,6 @@ public class ParcelSearch {
                     else if(input.equals("2") | input.toLowerCase().equals("address")){
                         System.out.println("Enter an address: ");
                         userParameters.setAddress(scan.nextLine());
-                    }
-                    else if(input.equals("3") | input.toLowerCase().equals("property value")){
-                        System.out.println("Enter the lower bound property value (inclusive): ");
-                        userParameters.setPropertyValueLower(Integer.valueOf(scan.nextLine()));
-                        System.out.println("Enter the upper bound property value (inclusive): ");
-                        userParameters.setPropertyValueUpper(Integer.valueOf(scan.nextLine()));
-                    }
-                    else if(input.equals("4") | input.toLowerCase().equals("land area")){
-                        System.out.println("Enter the lower bound of land area (inclusive): ");
-                        userParameters.setLandAreaLower(Integer.valueOf(scan.nextLine()));
-                        System.out.println("Enter the upper bound of land area (inclusive): ");
-                        userParameters.setLandAreaUpper(Integer.valueOf(scan.nextLine()));
-                    }
-                    else if(landUse == 2){
-                        if(input.equals("5") | input.toLowerCase().equals("living area")){
-                            System.out.println("Enter the lower bound of living area");
-                            userParameters.setLivingAreaLower(Integer.valueOf(scan.nextLine()));
-                            System.out.println("Enter the upper bound of living area");
-                            userParameters.setLivingAreaUpper(Integer.valueOf(scan.nextLine()));
-                        }
-                        if(input.equals("6") | input.toLowerCase().equals("bedrooms")){
-                            System.out.println("Enter the lower bound for bedrooms");
-                            userParameters.setBedroomsLower(Integer.valueOf(scan.nextLine()));
-                            userParameters.setBedroomsUpper(Integer.valueOf(scan.nextLine()));
-                        }
                     }
                     else if(input.toLowerCase().equals("continue")){
                         break;
@@ -122,7 +88,6 @@ public class ParcelSearch {
                         !(rp.getAddress().toLowerCase().contains(userParameters.getAddress().toLowerCase()))){
                     continue;
                 }
-
                 System.out.println();
                 rp.display();
             }
@@ -138,7 +103,6 @@ public class ParcelSearch {
                         !(cp.getAddress().toLowerCase().contains(userParameters.getAddress().toLowerCase()))){
                     continue;
                 }
-
                 System.out.println();
                 cp.display();
             }

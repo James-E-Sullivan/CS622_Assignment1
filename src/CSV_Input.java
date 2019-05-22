@@ -17,8 +17,6 @@ public class CSV_Input {
     // default constructor
     public CSV_Input(){}
 
-    //String[] CSV_HEADERS = {};
-
     public void read_CSV_File() throws IOException{
 
         Reader in = new FileReader("resources/Parcels_2016_Data_Full.csv");
@@ -57,23 +55,6 @@ public class CSV_Input {
     // accessor methods for Parcel HashMaps
     public HashMap<String, ResidentialParcel> getResidentialMap(){return residentialMap;}
     public HashMap<String, CommercialParcel> getCommercialMap(){return commercialMap;}
-
-    /*
-    public static void main(String[] args) throws IOException {
-        read_CSV_File();
-
-        for(ResidentialParcel rp : residentialMap.values()){
-            System.out.println();
-            rp.display();
-        }
-
-        for(CommercialParcel cp : commercialMap.values()){
-            System.out.println();
-            cp.display();
-        }
-    }
-
-     */
 
 
 }
