@@ -34,17 +34,16 @@ public class ParcelSearch {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-
-        CSV_Input bostonParcels = new CSV_Input();
-        bostonParcels.read_CSV_File();              // reads commercial and residential parcel info into HashMaps
-        HashMap<String, Parcel> bostonResidentialMap = bostonParcels.getResidentialMap();
-        HashMap<String, Parcel> bostonCommercialMap = bostonParcels.getCommercialMap();
+    /**
+     * Prompts user for information to narrow parcel search
+     * @return inputParameters: User defined search parameters
+     */
+    private static SearchParameters promptUser(){
 
         // Create Scanner object to obtain user parameter input
         Scanner scan = new Scanner(System.in);
         String input;
-        SearchParameters userParameters = new SearchParameters();   // will hold user specified search info
+        SearchParameters inputParameters = new SearchParameters();   // will hold user specified search info
 
         boolean done = false;
         while (!done){
@@ -56,10 +55,10 @@ public class ParcelSearch {
             input = scan.nextLine();
 
             if (input.equals("1") | input.toLowerCase().equals("commercial")){
-                userParameters.setLandUseType("Commercial");    // sets landUseType parameter to "Commercial"
+                inputParameters.setLandUseType("Commercial");    // sets landUseType parameter to "Commercial"
             }
             else if (input.equals("2") | input.toLowerCase().equals("residential")){
-                userParameters.setLandUseType("Residential");   // sets landUseType parameter to "Residential"
+                inputParameters.setLandUseType("Residential");   // sets landUseType parameter to "Residential"
             }
             else{
                 System.out.println("Invalid entry. Please enter a valid response.");
@@ -79,11 +78,11 @@ public class ParcelSearch {
                 try{
                     if(input.equals("1") | input.toLowerCase().equals("parcel id")){
                         System.out.println("Enter the desired Parcel ID: ");
-                        userParameters.setParcelID(scan.nextLine());    // does not check for validity
+                        inputParameters.setParcelID(scan.nextLine());    // does not check for validity
                     }
                     else if(input.equals("2") | input.toLowerCase().equals("address")){
                         System.out.println("Enter an address: ");
-                        userParameters.setAddress(scan.nextLine());
+                        inputParameters.setAddress(scan.nextLine());
                     }
                     else if(input.toLowerCase().equals("continue")){
                         break;
@@ -96,10 +95,21 @@ public class ParcelSearch {
                     System.err.println("Caught IllegalArgumentException: " + ex.getMessage());
                 }
             }
-
-        done = true;    // exit while loop
-
+            done = true;    // exit while loop
         }
+        return inputParameters;      // return inputParameters for search
+    }
+
+    public static void main(String[] args) throws IOException {
+
+        // Read parcel info from CSV file and store info in HashMaps
+        CSV_Input bostonParcels = new CSV_Input();
+        bostonParcels.read_CSV_File();              // reads commercial and residential parcel info into HashMaps
+        HashMap<String, Parcel> bostonResidentialMap = bostonParcels.getResidentialMap();
+        HashMap<String, Parcel> bostonCommercialMap = bostonParcels.getCommercialMap();
+
+        // obtain search parameters from user
+        SearchParameters userParameters = promptUser();
 
         // Searches for and displays parcels with matching criteria
         if(userParameters.getLandUseType().equals("Residential")){

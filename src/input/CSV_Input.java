@@ -12,6 +12,9 @@ import java.util.HashMap;
 
 public class CSV_Input {
 
+    // Constant used for CSV file
+    final private String CSV_INPUT_FILE = "resources/Parcels_2016_Data_Full.csv";
+
     // HashMaps for Res & Comm Parcels, with PID/Parcel pairs
     private static HashMap<String, Parcel> residentialMap = new HashMap<>();
     private static HashMap<String, Parcel> commercialMap = new HashMap<>();
@@ -29,7 +32,7 @@ public class CSV_Input {
     public void read_CSV_File() throws IOException{
 
         // opens CSV file and stores it in iterable CSVRecord object, records
-        Reader in = new FileReader("resources/Parcels_2016_Data_Full.csv");
+        Reader in = new FileReader(CSV_INPUT_FILE);
         Iterable<CSVRecord> records = CSVFormat.DEFAULT
                 .withFirstRecordAsHeader()
                 .parse(in);
@@ -72,7 +75,12 @@ public class CSV_Input {
                 // add new CommercialParcel object to commercialMap
                 commercialMap.put(cp.getParcelID(), cp);
             }
+
+
         }
+
+        // close CSV file
+        in.close();
     }
 
     // accessor methods for Parcel HashMaps
