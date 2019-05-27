@@ -114,7 +114,7 @@ public class ParcelSearch {
         return inputParameters;      // return inputParameters for search
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
 
         // Read parcel info from CSV file and store info in HashMaps
         CSV_Input bostonParcels = new CSV_Input();
