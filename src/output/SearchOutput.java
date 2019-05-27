@@ -1,6 +1,7 @@
 package output;
 
 import java.io.*;
+import java.util.LinkedList;
 
 public class SearchOutput {
 
@@ -9,23 +10,60 @@ public class SearchOutput {
     /**
      * Appends String of search results to OUTPUT_FILE
      * @param results: String of user search results
-     * @throws IOException: Throws IOException to caller
      */
-    public void writeSearchResults(String results) throws IOException {
-        PrintWriter out = new PrintWriter(new FileWriter(OUTPUT_FILE, true));   // append to file
-        out.println("\n" + results);
-        out.close();
+    public static void writeSearchResults(String results) {
+
+        try{
+            PrintWriter out = new PrintWriter(new FileWriter(OUTPUT_FILE, true));   // append to file
+            out.println("\n" + results);
+            out.close();
+        }
+
+        catch (IOException ex){
+            System.err.println("Caught IOException while writing search results: " +
+                    ex.getMessage());
+            ex.printStackTrace();
+        }
     }
 
     /**
      * Overwrites OUTPUT_FILE with String of search results.
      * @param results: String of user search results.
-     * @throws IOException: Throws IOException to caller
      */
-    public void overwriteSearchResults(String results) throws IOException {
-        PrintWriter out = new PrintWriter(new FileWriter(OUTPUT_FILE));
-        out.println(results);
-        out.close();
+    public static void overwriteSearchResults(String results){
+
+        try{
+            PrintWriter out = new PrintWriter(new FileWriter(OUTPUT_FILE));
+            out.println(results);
+            out.close();
+        }
+
+        catch (IOException ex){
+            System.err.println("Caught IOException while overwriting search results: " +
+                    ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Outputs multiple search results to output txt file
+     * @param outputList: List containing multiple display results
+     */
+    public static void writeSearchResultList(LinkedList<String> outputList){
+
+        try{
+            PrintWriter out = new PrintWriter(new FileWriter(OUTPUT_FILE, true));
+            for(String s : outputList){
+                out.println("\n" + s);
+            }
+            out.close();
+        }
+
+        catch (IOException ex){
+            System.err.println("Caught IOException while writing output search list: " +
+                    ex.getMessage());
+            ex.printStackTrace();
+        }
     }
 
 

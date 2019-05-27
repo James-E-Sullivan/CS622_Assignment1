@@ -1,11 +1,16 @@
 package search;
 import input.CSV_Input;
 import parcels.Parcel;
+import output.SearchOutput;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class ParcelSearch {
+
 
     /**
      * Searches through a given Parcel HashMap and displays parcel info
@@ -14,6 +19,9 @@ public class ParcelSearch {
      * @param parcelMap: HashMap with String (PID)/Parcel pairs
      */
     private static void executeSearch(SearchParameters param, HashMap<String, Parcel> parcelMap){
+
+        LinkedList<String> outputList = new LinkedList<>();
+
         for(Parcel p : parcelMap.values()){
 
             // if parcelID parameter specified and it doesn't match given parcelID, continue
@@ -28,10 +36,16 @@ public class ParcelSearch {
                 continue;
             }
 
-            // if no parameters specified, or if parameters met, display Parcel info
-            System.out.println();
-            p.display();
+            // if no parameters specified, or if parameters met, display Parcel info & write to file
+
+            //System.out.println();
+            //p.display();
+
+            outputList.add(p.display());
+
         }
+
+        SearchOutput.writeSearchResultList(outputList);
     }
 
     /**
@@ -110,6 +124,14 @@ public class ParcelSearch {
 
         // obtain search parameters from user
         SearchParameters userParameters = promptUser();
+
+        // get current date and time
+        Date currentDate = new Date();  // object contains unformatted current date value
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+        // clear search result output file prior to writing
+        SearchOutput.overwriteSearchResults("Date/Time of Search: " + formatter.format(currentDate) +
+                "\n----------------------------------------\n");
 
         // Searches for and displays parcels with matching criteria
         if(userParameters.getLandUseType().equals("Residential")){

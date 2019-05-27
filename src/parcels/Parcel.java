@@ -17,8 +17,8 @@ public abstract class Parcel {
         parcelID = pid;
     }
 
-    // method used to print Parcel information to the console
-    public abstract void display();
+    // method used to print Parcel information to the console and/or write to file
+    public abstract String display();
 
     // abstract getter methods
     public abstract String getParcelID();

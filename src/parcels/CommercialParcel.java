@@ -19,12 +19,27 @@ public class CommercialParcel extends Parcel{
     }
 
     // prints CommercialParcel information to console
-    public void display(){
+    public String display(){
+
+        String displayString = "Parcel ID (PID): " + parcelID +
+                "\nAddress: " + address +
+                "\nLand Use: " + type +
+                "\nProperty Value: " + propertyValue +
+                "\nLand Area: " + landArea;
+
+        System.out.println(displayString);
+        return displayString;
+
+
+
+        /*
         System.out.println("Parcel ID (PID): " + parcelID);
         System.out.println("Address: " + address);
         System.out.println("Land Use: " + type);
         System.out.println("Property Value: " + propertyValue);
         System.out.println("Land Area: " + landArea);
+
+         */
     }
 
     // setter methods

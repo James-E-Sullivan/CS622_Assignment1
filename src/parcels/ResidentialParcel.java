@@ -22,14 +22,17 @@ public class ResidentialParcel extends Parcel {
     }
 
     // Prints ResidentialParcel information to console
-    public void display(){
-        System.out.println("Parcel ID (PID): " + parcelID);
-        System.out.println("Address: " + address);
-        System.out.println("Land Use: " + type);
-        System.out.println("Property Value: " + propertyValue);
-        System.out.println("Land Area: " + landArea);
-        System.out.println("Living Area: " + livingArea);
-        System.out.println("Bedrooms: " + bedrooms);
+    public String display(){
+
+        String displayString = "Parcel ID (PID): " + parcelID +
+                "\nAddress: " + address +
+                "\nLand Use: " + type +
+                "\nProperty Value: " + propertyValue +
+                "\nLand Area: " + landArea +
+                "\nLiving Area: " + livingArea +
+                "\nBedrooms: " + bedrooms;
+
+        return displayString;
     }
 
     // ResidentialParcel setter methods
