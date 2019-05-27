@@ -130,7 +130,8 @@ public class ParcelSearch {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
         // clear search result output file prior to writing
-        SearchOutput.overwriteSearchResults("Date/Time of Search: " + formatter.format(currentDate) +
+        SearchOutput.overwriteSearchResults("Date/Time of Search: " + formatter.format(currentDate));
+        SearchOutput.writeSearchResults(userParameters.getAllParameters() +
                 "\n----------------------------------------\n");
 
         // Searches for and displays parcels with matching criteria

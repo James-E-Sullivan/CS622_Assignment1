@@ -18,7 +18,7 @@ public class CommercialParcel extends Parcel{
         parcelID = pid;
     }
 
-    // prints CommercialParcel information to console
+    // Returns CommercialParcel info String
     public String display(){
 
         String displayString = "Parcel ID (PID): " + parcelID +
@@ -27,19 +27,7 @@ public class CommercialParcel extends Parcel{
                 "\nProperty Value: " + propertyValue +
                 "\nLand Area: " + landArea;
 
-        System.out.println(displayString);
         return displayString;
-
-
-
-        /*
-        System.out.println("Parcel ID (PID): " + parcelID);
-        System.out.println("Address: " + address);
-        System.out.println("Land Use: " + type);
-        System.out.println("Property Value: " + propertyValue);
-        System.out.println("Land Area: " + landArea);
-
-         */
     }
 
     // setter methods

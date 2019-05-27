@@ -21,7 +21,7 @@ public class ResidentialParcel extends Parcel {
         parcelID = pid;
     }
 
-    // Prints ResidentialParcel information to console
+    // Returns ResidentialParcel info String
     public String display(){
 
         String displayString = "Parcel ID (PID): " + parcelID +
