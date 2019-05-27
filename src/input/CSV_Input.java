@@ -5,6 +5,8 @@ import org.apache.commons.csv.CSVRecord;
 import parcels.CommercialParcel;
 import parcels.Parcel;
 import parcels.ResidentialParcel;
+
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -79,11 +81,15 @@ public class CSV_Input {
             // close CSV file
             in.close();
         }
+        catch (FileNotFoundException ex){
+            ex.printStackTrace();
+        }
         catch (IOException ex){
             System.err.println("Caught IOException while opening " + CSV_INPUT_FILE +
                     ex.getMessage());
             ex.printStackTrace();
         }
+
     }
 
     // accessor methods for Parcel HashMaps

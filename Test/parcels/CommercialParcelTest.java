@@ -8,7 +8,7 @@ public class CommercialParcelTest {
 
     // Each get method test also tests associated setter method
 
-    CommercialParcel cp = new CommercialParcel();
+    private CommercialParcel cp = new CommercialParcel();
 
     @Test
     public void getParcelID() {
@@ -38,5 +38,22 @@ public class CommercialParcelTest {
     public void getLandArea() {
         cp.setLandArea("1000");
         assertEquals("1000", cp.getLandArea());
+    }
+
+    @Test
+    public void display() {
+        cp.setParcelID("PID");
+        cp.setAddress("Address");
+        cp.setType("Type");
+        cp.setPropertyValue("Value");
+        cp.setLandArea("Land Area");
+
+        String testString = "Parcel ID (PID): " + "PID" +
+                "\nAddress: " + "Address" +
+                "\nLand Use: " + "Type" +
+                "\nProperty Value: " + "Value" +
+                "\nLand Area: " + "Land Area";
+
+        assertEquals(testString, cp.display());
     }
 }

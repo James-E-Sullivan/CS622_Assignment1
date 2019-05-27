@@ -27,4 +27,17 @@ public class SearchParametersTest {
         sp.setAddress("925 Commonwealth Avenue");
         assertEquals("925 Commonwealth Avenue", sp.getAddress());
     }
+
+    @Test
+    public void getAllParameters() {
+        sp.setLandUseType("Type");
+        sp.setParcelID("PID");
+        sp.setAddress("Address");
+
+        String testString = "Land Use Type: " + "Type" +
+                "\nParcel ID: " + "PID" +
+                "\nAddress: " + "Address";
+
+        assertEquals(testString, sp.getAllParameters());
+    }
 }

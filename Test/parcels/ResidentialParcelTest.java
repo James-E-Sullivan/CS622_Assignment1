@@ -51,4 +51,25 @@ public class ResidentialParcelTest {
         rp.setBedrooms("3");
         assertEquals("3", rp.getBedrooms());
     }
+
+    @Test
+    public void display() {
+        rp.setParcelID("PID");
+        rp.setAddress("Address");
+        rp.setType("Type");
+        rp.setPropertyValue("Value");
+        rp.setLandArea("Land Area");
+        rp.setLivingArea("Living Area");
+        rp.setBedrooms("Bedrooms");
+
+        String testString = "Parcel ID (PID): " + "PID" +
+                "\nAddress: " + "Address" +
+                "\nLand Use: " + "Type" +
+                "\nProperty Value: " + "Value" +
+                "\nLand Area: " + "Land Area" +
+                "\nLiving Area: " + "Living Area" +
+                "\nBedrooms: " + "Bedrooms";
+
+        assertEquals(testString, rp.display());
+    }
 }

@@ -1,16 +1,16 @@
 package search;
+import custom_exceptions.ParcelSearchException;
 import input.CSV_Input;
 import parcels.Parcel;
 import output.SearchOutput;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class ParcelSearch {
 
+public class ParcelSearch {
 
     /**
      * Searches through a given Parcel HashMap and displays parcel info
@@ -34,18 +34,12 @@ public class ParcelSearch {
             else if((param.getAddress() != null) &&
                     !(p.getAddress().toLowerCase().contains(param.getAddress().toLowerCase()))){
                 continue;
+
             }
-
-            // if no parameters specified, or if parameters met, display Parcel info & write to file
-
-            //System.out.println();
-            //p.display();
-
             outputList.add(p.display());
-
         }
-
         SearchOutput.writeSearchResultList(outputList);
+        System.out.println("Search results successfully written to text file.");
     }
 
     /**
@@ -102,8 +96,12 @@ public class ParcelSearch {
                         break;
                     }
                     else{
-                        System.out.println("Invalid entry. Please enter a valid response.");
+                        // throw custom ParcelSearchException
+                        throw new ParcelSearchException("Invalid Entry: " + input);
                     }
+                }
+                catch (ParcelSearchException ex){
+                    ex.printStackTrace();
                 }
                 catch (IllegalArgumentException ex){
                     System.err.println("Caught IllegalArgumentException: " + ex.getMessage());
@@ -134,7 +132,7 @@ public class ParcelSearch {
         SearchOutput.writeSearchResults(userParameters.getAllParameters() +
                 "\n----------------------------------------\n");
 
-        // Searches for and displays parcels with matching criteria
+        // Searches parcels w/ matching criteria & writes parcel info to output txt file
         if(userParameters.getLandUseType().equals("Residential")){
             executeSearch(userParameters, bostonResidentialMap);
         }
