@@ -3,6 +3,7 @@ package output;
 import java.io.*;
 import java.util.LinkedList;
 
+// class with methods for handling text file writing
 public class SearchOutput {
 
     final static String OUTPUT_FILE = "resources/Search_Result_Output";

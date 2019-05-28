@@ -23,7 +23,7 @@ public class SearchParameters {
     public String getParcelID(){return parcelID;}
     public String getAddress(){return address;}
 
-    // returns string of all parameters
+    // returns String of all parameters
     public String getAllParameters(){
         return "Land Use Type: " + landUseType +
                 "\nParcel ID: " + parcelID +

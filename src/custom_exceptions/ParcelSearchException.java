@@ -1,5 +1,6 @@
 package custom_exceptions;
 
+// custom Exception for errors during ParcelSearch prompting
 public class ParcelSearchException extends Exception {
 
     // constructor accepts error message strings

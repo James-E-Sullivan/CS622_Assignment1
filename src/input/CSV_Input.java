@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.HashMap;
 
+// class with methods for handling CSV file input
 public class CSV_Input {
 
     // Constant used for CSV file
