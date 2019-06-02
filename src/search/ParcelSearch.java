@@ -1,6 +1,7 @@
 package search;
 import custom_exceptions.ParcelSearchException;
 import input.CSV_Input;
+import parcels.CommercialParcel;
 import parcels.Parcel;
 import output.SearchOutput;
 import java.text.SimpleDateFormat;
@@ -10,7 +11,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 
-public class ParcelSearch {
+public class ParcelSearch<T> {
 
     /**
      * Searches through a given Parcel HashMap and displays parcel info
@@ -112,6 +113,19 @@ public class ParcelSearch {
         return inputParameters;      // return inputParameters for search
     }
 
+    public static void findGreatestValues(HashMap<String, Parcel> parcelMap){
+
+        ParcelComparator PC = new ParcelComparator();
+        String greatestPID = "0";
+
+        for (Parcel p : parcelMap.values()){
+            greatestPID = PC.compareParcel(p.getParcelID(), greatestPID);
+        }
+
+        System.out.println("\nGreatest PID Value: " + greatestPID);
+    }
+
+
     public static void main(String[] args){
 
         // Read parcel info from CSV file and store info in HashMaps
@@ -139,5 +153,8 @@ public class ParcelSearch {
         else if(userParameters.getLandUseType().equals("Commercial")){
             executeSearch(userParameters, bostonCommercialMap);
         }
+
+        // outputs greatest Parcel variable values to console
+        findGreatestValues(bostonCommercialMap);
     }
 }

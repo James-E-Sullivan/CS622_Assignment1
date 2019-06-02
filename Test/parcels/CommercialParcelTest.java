@@ -30,14 +30,14 @@ public class CommercialParcelTest {
 
     @Test
     public void getPropertyValue() {
-        cp.setPropertyValue("100000");
-        assertEquals("100000", cp.getPropertyValue());
+        cp.setPropertyValue(100000);
+        assertEquals( (Integer) 100000, cp.getPropertyValue());
     }
 
     @Test
     public void getLandArea() {
-        cp.setLandArea("1000");
-        assertEquals("1000", cp.getLandArea());
+        cp.setLandArea(1000);
+        assertEquals( (Integer) 1000, cp.getLandArea());
     }
 
     @Test
@@ -45,14 +45,14 @@ public class CommercialParcelTest {
         cp.setParcelID("PID");
         cp.setAddress("Address");
         cp.setType("Type");
-        cp.setPropertyValue("Value");
-        cp.setLandArea("Land Area");
+        cp.setPropertyValue(100);
+        cp.setLandArea(100);
 
         String testString = "Parcel ID (PID): " + "PID" +
                 "\nAddress: " + "Address" +
                 "\nLand Use: " + "Type" +
-                "\nProperty Value: " + "Value" +
-                "\nLand Area: " + "Land Area";
+                "\nProperty Value: " + 100 +
+                "\nLand Area: " + 100;
 
         assertEquals(testString, cp.display());
     }

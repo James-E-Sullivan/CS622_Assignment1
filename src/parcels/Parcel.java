@@ -6,8 +6,8 @@ public abstract class Parcel {
     protected String parcelID;
     protected String address;
     protected String type;
-    protected String propertyValue;
-    protected String landArea;
+    protected Integer propertyValue;
+    protected Integer landArea;
 
     // Default constructor
     public Parcel(){}
@@ -24,14 +24,14 @@ public abstract class Parcel {
     public abstract String getParcelID();
     public abstract String getAddress();
     public abstract String getType();
-    public abstract String getPropertyValue();
-    public abstract String getLandArea();
+    public abstract Integer getPropertyValue();
+    public abstract Integer getLandArea();
 
     // abstract setter methods
     public abstract void setParcelID(String pid);
     public abstract void setAddress(String add);
     public abstract void setType(String t);
-    public abstract void setPropertyValue(String pv);
-    public abstract void setLandArea(String la);
+    public abstract void setPropertyValue(Integer pv);
+    public abstract void setLandArea(Integer la);
 
 }

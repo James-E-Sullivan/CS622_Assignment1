@@ -6,12 +6,12 @@ public class ResidentialParcel extends Parcel {
     protected String parcelID;
     protected String address;
     protected String type;
-    protected String propertyValue;
-    protected String landArea;
+    protected Integer propertyValue;
+    protected Integer landArea;
 
     // ResidentialParcel specific variables
-    protected String livingArea;
-    protected String bedrooms;
+    protected Integer livingArea;
+    protected Integer bedrooms;
 
     // default constructor
     public ResidentialParcel(){}
@@ -39,18 +39,18 @@ public class ResidentialParcel extends Parcel {
     public void setParcelID(String pid){parcelID = pid;}
     public void setAddress(String add){address = add;}
     public void setType(String t){type = t;}
-    public void setPropertyValue(String pv){propertyValue = pv;}
-    public void setLandArea(String la){landArea = la;}
-    public void setLivingArea(String liv_A){livingArea = liv_A;}
-    public void setBedrooms(String beds){bedrooms = beds;}
+    public void setPropertyValue(Integer pv){propertyValue = pv;}
+    public void setLandArea(Integer la){landArea = la;}
+    public void setLivingArea(Integer liv_A){livingArea = liv_A;}
+    public void setBedrooms(Integer beds){bedrooms = beds;}
 
     // ResidentialParcel accessor methods
     public String getParcelID(){return parcelID;}
     public String getAddress(){return address;}
     public String getType(){return type;}
-    public String getPropertyValue(){return propertyValue;}
-    public String getLandArea(){return landArea;}
-    public String getLivingArea(){return livingArea;}
-    public String getBedrooms(){return bedrooms;}
+    public Integer getPropertyValue(){return propertyValue;}
+    public Integer getLandArea(){return landArea;}
+    public Integer getLivingArea(){return livingArea;}
+    public Integer getBedrooms(){return bedrooms;}
 
 }

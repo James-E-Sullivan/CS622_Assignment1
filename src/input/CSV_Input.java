@@ -25,6 +25,23 @@ public class CSV_Input {
     // default constructor
     public CSV_Input(){}
 
+    private Integer inputToInteger(String inputText){
+
+        Integer inputInteger = null;
+
+        try{
+            inputInteger = Integer.valueOf(inputText);
+        }
+        catch (NumberFormatException ex){
+            // inputInteger remains null
+        }
+        catch (RuntimeException ex){
+            ex.printStackTrace();
+        }
+
+        return inputInteger;
+    }
+
     /**
      * Reads Boston Parcel Information CSV.
      * Known header values allow for hard-coded column numbers.
@@ -43,36 +60,50 @@ public class CSV_Input {
             // iterates through records
             for(CSVRecord record : records){
 
+                // obtain string values from applicable columns
+                String PID = record.get(3);
+                String address = record.get(58);
+                String type = record.get(11);
+                String propertyValue = record.get(19).replaceAll("\\s+","");
+                String landArea = record.get(21).replaceAll("\\s+","");
+
                 // creates new ResidentialParcel object, sets values, and adds it to residentialMap
-                if(record.get(11).contains("Residential")){
+                if(type.contains("Residential")){
 
                     //Create ResidentialParcel object (removed unnecessary downcasting)
                     ResidentialParcel rp = new ResidentialParcel();
 
-                    //set ResidentialParcel variables
-                    rp.setParcelID(record.get(3));
-                    rp.setAddress(record.get(58));
-                    rp.setType(record.get(11));
-                    rp.setPropertyValue(record.get(19));
-                    rp.setLandArea(record.get(21));
-                    rp.setLivingArea(record.get(25));
-                    rp.setBedrooms(record.get(32));
+                    // obtain string values for residential-specific columns
+                    String livingArea = record.get(25).replaceAll("\\s+","");
+                    String bedrooms = record.get(32).replaceAll("\\s+","");
+
+                    //set ResidentialParcel String variables
+                    rp.setParcelID(PID);
+                    rp.setAddress(address);
+                    rp.setType(type);
+
+                    // Set Residential Parcel Integer variables
+                    rp.setPropertyValue(inputToInteger(propertyValue));
+                    rp.setLandArea(inputToInteger(landArea));
+                    rp.setLivingArea(inputToInteger(livingArea));
+                    rp.setBedrooms(inputToInteger(bedrooms));
 
                     // add new ResidentialParcel object to residentialMap
                     residentialMap.put(rp.getParcelID(), rp);
                 }
 
                 // creates new CommercialParcel object, sets values, adds it to CommercialMap
-                else if(record.get(11).contains("Commercial")){
+                else if(type.contains("Commercial")){
 
-                    // create CommercialParcel object without using downcasting
+                    // create CommercialParcel object without using down-casting
                     CommercialParcel cp = new CommercialParcel();
 
                     // set CommercialParcel variables
-                    cp.setParcelID(record.get(3));
-                    cp.setAddress(record.get(58));
-                    cp.setPropertyValue((record.get(19)));
-                    cp.setLandArea(record.get(21));
+                    cp.setParcelID(PID);
+                    cp.setAddress(address);
+                    cp.setType(type);
+                    cp.setPropertyValue(inputToInteger(propertyValue));
+                    cp.setLandArea(inputToInteger(landArea));
 
                     // add new CommercialParcel object to commercialMap
                     commercialMap.put(cp.getParcelID(), cp);

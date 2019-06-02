@@ -6,8 +6,8 @@ public class CommercialParcel extends Parcel{
     protected String parcelID;
     protected String address;
     protected String type = "Commercial";
-    protected String propertyValue;
-    protected String landArea;
+    protected Integer propertyValue;
+    protected Integer landArea;
 
 
     // default constructor
@@ -34,14 +34,14 @@ public class CommercialParcel extends Parcel{
     public void setParcelID(String pid){parcelID = pid;}
     public void setAddress(String add){address = add;}
     public void setType(String t){type = t;}
-    public void setPropertyValue(String pv){propertyValue = pv;}
-    public void setLandArea(String la){landArea = la;}
+    public void setPropertyValue(Integer pv){propertyValue = pv;}
+    public void setLandArea(Integer la){landArea = la;}
 
     // accessor methods
     public String getParcelID(){return parcelID;}
     public String getAddress(){return address;}
     public String getType(){return type;}
-    public String getPropertyValue(){return propertyValue;}
-    public String getLandArea(){return landArea;}
+    public Integer getPropertyValue(){return propertyValue;}
+    public Integer getLandArea(){return landArea;}
 
 }

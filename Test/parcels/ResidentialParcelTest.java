@@ -30,26 +30,26 @@ public class ResidentialParcelTest {
 
     @Test
     public void getPropertyValue() {
-        rp.setPropertyValue("100000");
-        assertEquals("100000", rp.getPropertyValue());
+        rp.setPropertyValue(100000);
+        assertEquals( (Integer) 100000, rp.getPropertyValue());
     }
 
     @Test
     public void getLandArea() {
-        rp.setLandArea("1000");
-        assertEquals("1000", rp.getLandArea());
+        rp.setLandArea(1000);
+        assertEquals( (Integer) 1000, rp.getLandArea());
     }
 
     @Test
     public void getLivingArea() {
-        rp.setLivingArea("1000");
-        assertEquals("1000", rp.getLivingArea());
+        rp.setLivingArea(1000);
+        assertEquals( (Integer) 1000, rp.getLivingArea());
     }
 
     @Test
     public void getBedrooms() {
-        rp.setBedrooms("3");
-        assertEquals("3", rp.getBedrooms());
+        rp.setBedrooms(3);
+        assertEquals( (Integer) 3, rp.getBedrooms());
     }
 
     @Test
@@ -57,18 +57,18 @@ public class ResidentialParcelTest {
         rp.setParcelID("PID");
         rp.setAddress("Address");
         rp.setType("Type");
-        rp.setPropertyValue("Value");
-        rp.setLandArea("Land Area");
-        rp.setLivingArea("Living Area");
-        rp.setBedrooms("Bedrooms");
+        rp.setPropertyValue(100);
+        rp.setLandArea(100);
+        rp.setLivingArea(100);
+        rp.setBedrooms(100);
 
         String testString = "Parcel ID (PID): " + "PID" +
                 "\nAddress: " + "Address" +
                 "\nLand Use: " + "Type" +
-                "\nProperty Value: " + "Value" +
-                "\nLand Area: " + "Land Area" +
-                "\nLiving Area: " + "Living Area" +
-                "\nBedrooms: " + "Bedrooms";
+                "\nProperty Value: " + 100 +
+                "\nLand Area: " + 100 +
+                "\nLiving Area: " + 100 +
+                "\nBedrooms: " + 100;
 
         assertEquals(testString, rp.display());
     }
