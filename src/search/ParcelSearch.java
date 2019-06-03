@@ -4,6 +4,8 @@ import input.CSV_Input;
 import parcels.CommercialParcel;
 import parcels.Parcel;
 import output.SearchOutput;
+import parcels.ResidentialParcel;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,7 +13,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 
-public class ParcelSearch<T> {
+public class ParcelSearch {
 
     /**
      * Searches through a given Parcel HashMap and displays parcel info
@@ -116,13 +118,30 @@ public class ParcelSearch<T> {
     public static void findGreatestValues(HashMap<String, Parcel> parcelMap){
 
         ParcelComparator PC = new ParcelComparator();
-        String greatestPID = "0";
+        String greatestPID = "";
+        String greatestAddress = "";
+        Integer greatestPropertyValue = 0;
+        Integer greatestLandArea = 0;
+        Integer greatestLivingArea = 0;
+        Integer greatestBedrooms = 0;
 
         for (Parcel p : parcelMap.values()){
             greatestPID = PC.compareParcel(p.getParcelID(), greatestPID);
+            greatestAddress = PC.compareParcel(p.getAddress(), greatestAddress);
+            greatestPropertyValue = PC.compareParcel(p.getPropertyValue(), greatestPropertyValue);
+            greatestLandArea = PC.compareParcel(p.getLandArea(), greatestLandArea);
+
+            // determine living area and bedroom values only if Parcel is residential
+            if (p instanceof ResidentialParcel){
+                greatestLivingArea = PC.compareParcel(((ResidentialParcel) p).getLivingArea(), greatestLivingArea);
+                greatestBedrooms = PC.compareParcel(((ResidentialParcel) p).getBedrooms(), greatestBedrooms);
+            }
         }
 
         System.out.println("\nGreatest PID Value: " + greatestPID);
+        System.out.println("Greatest Address Value: " + greatestAddress);
+        System.out.println("Greatest Property Value: " + greatestPropertyValue);
+        System.out.println("Greatest Land Area: " + greatestLandArea);
     }
 
 

@@ -33,7 +33,8 @@ public class CSV_Input {
             inputInteger = Integer.valueOf(inputText);
         }
         catch (NumberFormatException ex){
-            // inputInteger remains null
+            // ideally, this would be null - need to add functionality
+            inputInteger = 0;
         }
         catch (RuntimeException ex){
             ex.printStackTrace();
