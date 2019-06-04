@@ -117,7 +117,10 @@ public class ParcelSearch {
 
     public static void findGreatestValues(HashMap<String, Parcel> parcelMap){
 
+        // create new Generic Parcel Comparator
         ParcelComparator PC = new ParcelComparator();
+
+        // initialize greatest variable values to lowest possible value
         String greatestPID = "";
         String greatestAddress = "";
         Integer greatestPropertyValue = 0;
@@ -125,6 +128,9 @@ public class ParcelSearch {
         Integer greatestLivingArea = 0;
         Integer greatestBedrooms = 0;
 
+        boolean residential = false;
+
+        // iterate through parcelMap to obtain greatest values
         for (Parcel p : parcelMap.values()){
             greatestPID = PC.compareParcel(p.getParcelID(), greatestPID);
             greatestAddress = PC.compareParcel(p.getAddress(), greatestAddress);
@@ -133,6 +139,7 @@ public class ParcelSearch {
 
             // determine living area and bedroom values only if Parcel is residential
             if (p instanceof ResidentialParcel){
+                residential = true;
                 greatestLivingArea = PC.compareParcel(((ResidentialParcel) p).getLivingArea(), greatestLivingArea);
                 greatestBedrooms = PC.compareParcel(((ResidentialParcel) p).getBedrooms(), greatestBedrooms);
             }
@@ -142,6 +149,10 @@ public class ParcelSearch {
         System.out.println("Greatest Address Value: " + greatestAddress);
         System.out.println("Greatest Property Value: " + greatestPropertyValue);
         System.out.println("Greatest Land Area: " + greatestLandArea);
+        if (residential){
+            System.out.println("Greatest Living Area: " + greatestLivingArea);
+            System.out.println("Greatest Number of Bedrooms: " + greatestBedrooms);
+        }
     }
 
 
@@ -168,12 +179,15 @@ public class ParcelSearch {
         // Searches parcels w/ matching criteria & writes parcel info to output txt file
         if(userParameters.getLandUseType().equals("Residential")){
             executeSearch(userParameters, bostonResidentialMap);
+
+            // outputs greatest parcel variable values to console
+            findGreatestValues(bostonResidentialMap);
         }
         else if(userParameters.getLandUseType().equals("Commercial")){
             executeSearch(userParameters, bostonCommercialMap);
-        }
 
-        // outputs greatest Parcel variable values to console
-        findGreatestValues(bostonCommercialMap);
+            // outputs greatest Parcel variable values to console
+            findGreatestValues(bostonCommercialMap);
+        }
     }
 }
