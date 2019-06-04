@@ -1,7 +1,7 @@
 package search;
 import custom_exceptions.ParcelSearchException;
 import input.CSV_Input;
-import parcels.CommercialParcel;
+import org.jetbrains.annotations.NotNull;
 import parcels.Parcel;
 import output.SearchOutput;
 import parcels.ResidentialParcel;
@@ -115,10 +115,16 @@ public class ParcelSearch {
         return inputParameters;      // return inputParameters for search
     }
 
-    public static void findGreatestValues(HashMap<String, Parcel> parcelMap){
+    /**
+     * Outputs to console the greatest values for PID, Address, Property Value, Land Area
+     * living area (residential only) and bedrooms (residential only).
+     * @param parcelMap: HashMap with PID/Parcel as Key/Value pairs
+     */
+    private static void findGreatestValues(@NotNull HashMap<String, Parcel> parcelMap){
 
         // create new Generic Parcel Comparator
-        ParcelComparator PC = new ParcelComparator();
+        ParcelComparator<String> stringComp = new ParcelComparator<>();
+        ParcelComparator<Integer> intComp = new ParcelComparator<>();
 
         // initialize greatest variable values to lowest possible value
         String greatestPID = "";
@@ -132,16 +138,16 @@ public class ParcelSearch {
 
         // iterate through parcelMap to obtain greatest values
         for (Parcel p : parcelMap.values()){
-            greatestPID = PC.compareParcel(p.getParcelID(), greatestPID);
-            greatestAddress = PC.compareParcel(p.getAddress(), greatestAddress);
-            greatestPropertyValue = PC.compareParcel(p.getPropertyValue(), greatestPropertyValue);
-            greatestLandArea = PC.compareParcel(p.getLandArea(), greatestLandArea);
+            greatestPID = stringComp.highValue(p.getParcelID(), greatestPID);
+            greatestAddress = stringComp.highValue(p.getAddress(), greatestAddress);
+            greatestPropertyValue = intComp.highValue(p.getPropertyValue(), greatestPropertyValue);
+            greatestLandArea = intComp.highValue(p.getLandArea(), greatestLandArea);
 
             // determine living area and bedroom values only if Parcel is residential
             if (p instanceof ResidentialParcel){
                 residential = true;
-                greatestLivingArea = PC.compareParcel(((ResidentialParcel) p).getLivingArea(), greatestLivingArea);
-                greatestBedrooms = PC.compareParcel(((ResidentialParcel) p).getBedrooms(), greatestBedrooms);
+                greatestLivingArea = intComp.highValue(((ResidentialParcel) p).getLivingArea(), greatestLivingArea);
+                greatestBedrooms = intComp.highValue(((ResidentialParcel) p).getBedrooms(), greatestBedrooms);
             }
         }
 

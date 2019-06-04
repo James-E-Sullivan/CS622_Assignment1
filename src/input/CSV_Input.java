@@ -19,12 +19,17 @@ public class CSV_Input {
     final private String CSV_INPUT_FILE = "resources/Parcels_2016_Data_Full.csv";
 
     // HashMaps for Res & Comm Parcels, with PID/Parcel pairs
-    private static HashMap<String, Parcel> residentialMap = new HashMap<>();
-    private static HashMap<String, Parcel> commercialMap = new HashMap<>();
+    private HashMap<String, Parcel> residentialMap = new HashMap<>();
+    private HashMap<String, Parcel> commercialMap = new HashMap<>();
 
     // default constructor
     public CSV_Input(){}
 
+    /**
+     * Converts String numbers into Integers
+     * @param inputText: Input from CSV file entry
+     * @return inputInteger
+     */
     private Integer inputToInteger(String inputText){
 
         Integer inputInteger = null;

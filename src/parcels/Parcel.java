@@ -1,6 +1,6 @@
 package parcels;
 
-public abstract class Parcel<T> {
+public abstract class Parcel {
 
     // Parcel Class variables
     protected String parcelID;
@@ -8,9 +8,6 @@ public abstract class Parcel<T> {
     protected String type;
     protected Integer propertyValue;
     protected Integer landArea;
-
-    // variable to be used as
-    protected T keyVariable;
 
     // Default constructor
     public Parcel(){}
