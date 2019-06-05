@@ -151,6 +151,7 @@ public class ParcelSearch {
             }
         }
 
+        // prints greatest values to console
         System.out.println("\nGreatest PID Value: " + greatestPID);
         System.out.println("Greatest Address Value: " + greatestAddress);
         System.out.println("Greatest Property Value: " + greatestPropertyValue);
