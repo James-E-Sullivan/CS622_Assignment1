@@ -5,7 +5,7 @@ This project is an application that receives user input regarding the type of la
 Boston, and it returns relevant parcel information. The program reads 2016 parcel/assessment data from the City of 
 Boston, which is stored in a CSV file. The user will be able to set parameters for their search, land-use, parcel ID, 
 and address. BPS will search for parcels that match user parameters, print parcel information to the console, and save 
-parcel information to a text file. A generic ParcelComparator class will be used to output the greatest values for PID, 
+parcel information to a text file. A generic ParcelComparator class will be used to IO the greatest values for PID, 
 Address, Property Value, Land Area, Living Area, and Bedrooms.  
 
 How to run the program:
@@ -13,6 +13,6 @@ How to run the program:
     * Run src/search/ParcelSearch.main()
     * Follow console commands
     
-Where are the input and output files located?:
+Where are the input and IO files located?:
 
     * I/O files are located in the resources folder

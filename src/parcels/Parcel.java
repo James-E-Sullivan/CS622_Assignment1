@@ -1,6 +1,8 @@
 package parcels;
 
-public abstract class Parcel {
+import java.io.Serializable;
+
+public abstract class Parcel implements Serializable {
 
     // Parcel Class variables
     protected String parcelID;

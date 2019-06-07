@@ -1,4 +1,4 @@
-package input;
+package IO;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;

@@ -1,4 +1,4 @@
-package output;
+package IO;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -47,7 +47,7 @@ public class SearchOutput {
     }
 
     /**
-     * Outputs multiple search results to output txt file
+     * Outputs multiple search results to IO txt file
      * @param outputList: List containing multiple display results
      */
     public static void writeSearchResultList(LinkedList<String> outputList){
@@ -61,7 +61,7 @@ public class SearchOutput {
         }
 
         catch (IOException ex){
-            System.err.println("Caught IOException while writing output search list: " +
+            System.err.println("Caught IOException while writing IO search list: " +
                     ex.getMessage());
             ex.printStackTrace();
         }

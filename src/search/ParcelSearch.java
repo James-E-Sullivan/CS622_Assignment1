@@ -1,9 +1,10 @@
 package search;
 import custom_exceptions.ParcelSearchException;
-import input.CSV_Input;
+import IO.CSV_Input;
 import org.jetbrains.annotations.NotNull;
+import IO.ParcelIO;
 import parcels.Parcel;
-import output.SearchOutput;
+import IO.SearchOutput;
 import parcels.ResidentialParcel;
 
 import java.text.SimpleDateFormat;
@@ -178,23 +179,32 @@ public class ParcelSearch {
         Date currentDate = new Date();  // object contains unformatted current date value
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
-        // clear search result output file prior to writing
+        // clear search result IO file prior to writing
         SearchOutput.overwriteSearchResults("Date/Time of Search: " + formatter.format(currentDate));
         SearchOutput.writeSearchResults(userParameters.getAllParameters() +
                 "\n----------------------------------------\n");
 
-        // Searches parcels w/ matching criteria & writes parcel info to output txt file
+
+        ParcelIO pOut = new ParcelIO();
+
+
+        // Searches parcels w/ matching criteria & writes parcel info to IO txt file
         if(userParameters.getLandUseType().equals("Residential")){
             executeSearch(userParameters, bostonResidentialMap);
 
             // outputs greatest parcel variable values to console
             findGreatestValues(bostonResidentialMap);
+            pOut.writeParcel(bostonResidentialMap);
+            pOut.readParcel();
         }
         else if(userParameters.getLandUseType().equals("Commercial")){
             executeSearch(userParameters, bostonCommercialMap);
 
             // outputs greatest Parcel variable values to console
             findGreatestValues(bostonCommercialMap);
+            pOut.writeParcel(bostonCommercialMap);
+            pOut.readParcel();
+
         }
     }
 }
