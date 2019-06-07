@@ -25,6 +25,7 @@ public class ParcelSearch {
     private static void executeSearch(SearchParameters param, HashMap<String, Parcel> parcelMap){
 
         LinkedList<String> outputList = new LinkedList<>();
+        HashMap<String, Parcel> outputMap = new HashMap<>();
 
         for(Parcel p : parcelMap.values()){
 
@@ -38,12 +39,20 @@ public class ParcelSearch {
             else if((param.getAddress() != null) &&
                     !(p.getAddress().toLowerCase().contains(param.getAddress().toLowerCase()))){
                 continue;
-
+            }
+            // if propertyValue parameter specified and parcel value is outside of ceiling/floor values, continue
+            else if((param.getLowerPropertyValue() != null && param.getUpperPropertyValue() != null) &&
+                    !(p.getPropertyValue() > param.getLowerPropertyValue() &&
+                            p.getPropertyValue() < param.getUpperPropertyValue())){
+                continue;
             }
             outputList.add(p.display());
+            outputMap.put(p.getParcelID(), p);
         }
-        SearchOutput.writeSearchResultList(outputList);
+        SearchOutput.writeSearchResultList(outputList); // Write text string to output txt file
+        ParcelIO.writeParcel(outputMap);                // Write Parcel objects to file
         System.out.println("Search results successfully written to text file.");
+        System.out.println("Matching Parcels saved to object output file.");
     }
 
     /**
@@ -84,9 +93,10 @@ public class ParcelSearch {
                         " Otherwise, enter 'continue'.");
                 System.out.println("    1. Parcel ID");
                 System.out.println("    2. Address");
+                System.out.println("    3. Property Value");
                 input = scan.nextLine();        // get user response
 
-                // update parcelID and/or address search parameters
+                // update parcelID, address, and/or propertyValue search parameters
                 try{
                     if(input.equals("1") | input.toLowerCase().equals("parcel id")){
                         System.out.println("Enter the desired Parcel ID: ");
@@ -95,6 +105,13 @@ public class ParcelSearch {
                     else if(input.equals("2") | input.toLowerCase().equals("address")){
                         System.out.println("Enter an address: ");
                         inputParameters.setAddress(scan.nextLine());
+                    }
+                    else if(input.equals("3") | input.toLowerCase().equals("property value")){
+                        System.out.println("Enter a target property value");
+
+                        // set propertyValue and set search bounds
+                        inputParameters.setPropertyValue(Integer.valueOf(scan.nextLine()));
+                        inputParameters.setPropertyValueBounds();
                     }
                     else if(input.toLowerCase().equals("continue")){
                         break;
@@ -194,17 +211,19 @@ public class ParcelSearch {
 
             // outputs greatest parcel variable values to console
             findGreatestValues(bostonResidentialMap);
-            pOut.writeParcel(bostonResidentialMap);
-            pOut.readParcel();
         }
         else if(userParameters.getLandUseType().equals("Commercial")){
             executeSearch(userParameters, bostonCommercialMap);
 
             // outputs greatest Parcel variable values to console
             findGreatestValues(bostonCommercialMap);
-            pOut.writeParcel(bostonCommercialMap);
-            pOut.readParcel();
 
+        }
+
+        // display objects from object output file
+        System.out.println("\nDisplaying Parcels from object output file:\n");
+        for (Parcel p : ParcelIO.readParcel().values()){
+            System.out.println(p.display());
         }
     }
 }

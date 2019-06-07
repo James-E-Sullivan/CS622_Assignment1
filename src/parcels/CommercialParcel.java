@@ -21,7 +21,7 @@ public class CommercialParcel extends Parcel{
     // Returns CommercialParcel info String
     public String display(){
 
-        String displayString = "Parcel ID (PID): " + parcelID +
+        String displayString = "\nParcel ID (PID): " + parcelID +
                 "\nAddress: " + address +
                 "\nLand Use: " + type +
                 "\nProperty Value: " + propertyValue +
