@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 // class with methods for handling CSV file input
 public class CSV_Input {
@@ -19,8 +20,8 @@ public class CSV_Input {
     final private String CSV_INPUT_FILE = "resources/Parcels_2016_Data_Full.csv";
 
     // HashMaps for Res & Comm Parcels, with PID/Parcel pairs
-    private HashMap<String, Parcel> residentialMap = new HashMap<>();
-    private HashMap<String, Parcel> commercialMap = new HashMap<>();
+    private LinkedHashMap<String, Parcel> residentialMap = new LinkedHashMap<>();
+    private LinkedHashMap<String, Parcel> commercialMap = new LinkedHashMap<>();
 
     // default constructor
     public CSV_Input(){}
@@ -131,8 +132,8 @@ public class CSV_Input {
     }
 
     // accessor methods for Parcel HashMaps
-    public HashMap<String, Parcel> getResidentialMap(){return residentialMap;}
-    public HashMap<String, Parcel> getCommercialMap(){return commercialMap;}
+    public LinkedHashMap<String, Parcel> getResidentialMap(){return residentialMap;}
+    public LinkedHashMap<String, Parcel> getCommercialMap(){return commercialMap;}
 
 
 }

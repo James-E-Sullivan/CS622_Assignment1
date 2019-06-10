@@ -3,12 +3,13 @@ package IO;
 import parcels.Parcel;
 import java.io.*;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class ParcelIO {
 
     final private static String OBJECT_FILE = "resources/Object_Output.dat";
 
-    public static void writeParcel(HashMap<String, Parcel> parcelMap){
+    public static void writeParcel(LinkedHashMap<String, Parcel> parcelMap){
 
         try {
             ObjectOutputStream outfile = new ObjectOutputStream(new FileOutputStream(OBJECT_FILE));
@@ -28,8 +29,8 @@ public class ParcelIO {
 
     }
 
-    public static HashMap<String, Parcel> readParcel(){
-        HashMap<String, Parcel> inputMap = new HashMap<>();
+    public static LinkedHashMap<String, Parcel> readParcel(){
+        LinkedHashMap<String, Parcel> inputMap = new LinkedHashMap<>();
 
         try {
             ObjectInputStream infile = new ObjectInputStream(new FileInputStream(OBJECT_FILE));

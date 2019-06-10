@@ -8,10 +8,7 @@ import IO.SearchOutput;
 import parcels.ResidentialParcel;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class ParcelSearch {
@@ -22,10 +19,14 @@ public class ParcelSearch {
      * @param param: search.SearchParameters object
      * @param parcelMap: HashMap with String (PID)/Parcel pairs
      */
-    private static void executeSearch(SearchParameters param, HashMap<String, Parcel> parcelMap){
+    private static void executeSearch(SearchParameters param, LinkedHashMap<String, Parcel> parcelMap){
 
         LinkedList<String> outputList = new LinkedList<>();
-        HashMap<String, Parcel> outputMap = new HashMap<>();
+        LinkedHashMap<String, Parcel> outputMap = new LinkedHashMap<>();
+
+        ParcelSorter searchFilter = new ParcelSorter();
+        //HashMap<String, Parcel> outputMap = searchFilter.parameterFilter(param, parcelMap);
+
 
         for(Parcel p : parcelMap.values()){
 
@@ -48,7 +49,13 @@ public class ParcelSearch {
             }
             outputList.add(p.display());
             outputMap.put(p.getParcelID(), p);
+
+            // add filters for outputMap
+            outputMap = searchFilter.sortPropertyValue(outputMap);
         }
+
+
+
         SearchOutput.writeSearchResultList(outputList); // Write text string to output txt file
         ParcelIO.writeParcel(outputMap);                // Write Parcel objects to file
         System.out.println("Search results successfully written to text file.");
@@ -186,8 +193,8 @@ public class ParcelSearch {
         // Read parcel info from CSV file and store info in HashMaps
         CSV_Input bostonParcels = new CSV_Input();
         bostonParcels.read_CSV_File();              // reads commercial and residential parcel info into HashMaps
-        HashMap<String, Parcel> bostonResidentialMap = bostonParcels.getResidentialMap();
-        HashMap<String, Parcel> bostonCommercialMap = bostonParcels.getCommercialMap();
+        LinkedHashMap<String, Parcel> bostonResidentialMap = bostonParcels.getResidentialMap();
+        LinkedHashMap<String, Parcel> bostonCommercialMap = bostonParcels.getCommercialMap();
 
         // obtain search parameters from user
         SearchParameters userParameters = promptUser();
