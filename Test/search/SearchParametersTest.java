@@ -40,4 +40,6 @@ public class SearchParametersTest {
 
         assertEquals(testString, sp.getAllParameters());
     }
+
+
 }

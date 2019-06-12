@@ -27,7 +27,6 @@ public class ParcelSearch {
         ParcelSorter searchFilter = new ParcelSorter();
         //HashMap<String, Parcel> outputMap = searchFilter.parameterFilter(param, parcelMap);
 
-
         for(Parcel p : parcelMap.values()){
 
             // if parcelID parameter specified and it doesn't match given parcelID, continue
@@ -208,23 +207,12 @@ public class ParcelSearch {
         SearchOutput.writeSearchResults(userParameters.getAllParameters() +
                 "\n----------------------------------------\n");
 
-
-        ParcelIO pOut = new ParcelIO();
-
-
         // Searches parcels w/ matching criteria & writes parcel info to IO txt file
         if(userParameters.getLandUseType().equals("Residential")){
             executeSearch(userParameters, bostonResidentialMap);
-
-            // outputs greatest parcel variable values to console
-            findGreatestValues(bostonResidentialMap);
         }
         else if(userParameters.getLandUseType().equals("Commercial")){
             executeSearch(userParameters, bostonCommercialMap);
-
-            // outputs greatest Parcel variable values to console
-            findGreatestValues(bostonCommercialMap);
-
         }
 
         // display objects from object output file

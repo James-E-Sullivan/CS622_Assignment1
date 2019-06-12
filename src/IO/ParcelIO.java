@@ -9,6 +9,11 @@ public class ParcelIO {
 
     final private static String OBJECT_FILE = "resources/Object_Output.dat";
 
+    /**
+     * Write Parcel objects from a LinkedHashMap collection
+     * into a file that can be saved for later.
+     * @param parcelMap: LinkedHashMap with PID,Parcel pairs
+     */
     public static void writeParcel(LinkedHashMap<String, Parcel> parcelMap){
 
         try {
@@ -29,6 +34,10 @@ public class ParcelIO {
 
     }
 
+    /**
+     * Read Parcel objects from a file (OBJECT_FILE)
+     * @return inputMap: LinkedHashMap with PID,Parcel pairs
+     */
     public static LinkedHashMap<String, Parcel> readParcel(){
         LinkedHashMap<String, Parcel> inputMap = new LinkedHashMap<>();
 
