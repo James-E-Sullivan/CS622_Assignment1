@@ -30,7 +30,10 @@ public class SearchParameters {
     public void setLandUseType(String type){landUseType = type;}
     public void setParcelID(String pid){parcelID = pid;}
     public void setAddress(String add){address = add;}
-    public void setPropertyValue(Integer pV){propertyValue = pV;}
+    public void setPropertyValue(Integer pV){
+        propertyValue = pV;
+        this.setPropertyValueBounds();
+    }
 
     /**
      * Sets ceiling/floor bounds for propertyValue searches

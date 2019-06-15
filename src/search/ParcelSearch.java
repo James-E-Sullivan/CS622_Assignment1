@@ -1,6 +1,7 @@
 package search;
 import custom_exceptions.ParcelSearchException;
 import IO.CSV_Input;
+import database.DBMain;
 import org.jetbrains.annotations.NotNull;
 import IO.ParcelIO;
 import parcels.Parcel;
@@ -22,9 +23,10 @@ public class ParcelSearch {
     private static void executeSearch(SearchParameters param, LinkedHashMap<String, Parcel> parcelMap){
 
         LinkedList<String> outputList = new LinkedList<>();
+        LinkedHashMap<String, Parcel> unfilteredMap = new LinkedHashMap<>();
         LinkedHashMap<String, Parcel> outputMap = new LinkedHashMap<>();
 
-        ParcelSorter searchFilter = new ParcelSorter();
+        ParcelFilter searchFilter = new ParcelFilter();
         //HashMap<String, Parcel> outputMap = searchFilter.parameterFilter(param, parcelMap);
 
         for(Parcel p : parcelMap.values()){
@@ -40,25 +42,21 @@ public class ParcelSearch {
                     !(p.getAddress().toLowerCase().contains(param.getAddress().toLowerCase()))){
                 continue;
             }
-            // if propertyValue parameter specified and parcel value is outside of ceiling/floor values, continue
-            else if((param.getLowerPropertyValue() != null && param.getUpperPropertyValue() != null) &&
-                    !(p.getPropertyValue() > param.getLowerPropertyValue() &&
-                            p.getPropertyValue() < param.getUpperPropertyValue())){
-                continue;
-            }
+
             outputList.add(p.display());
-            outputMap.put(p.getParcelID(), p);
+            unfilteredMap.put(p.getParcelID(), p);  // map with matching PID and addresses
 
-            // add filters for outputMap
-            outputMap = searchFilter.sortPropertyValue(outputMap);
+            // add propertyValue filters for outputMap
+            if (param.getUpperPropertyValue() != null && param.getLowerPropertyValue() != null){
+                outputMap = searchFilter.propertyValueFilter(param, unfilteredMap);
+            }
         }
-
-
 
         SearchOutput.writeSearchResultList(outputList); // Write text string to output txt file
         ParcelIO.writeParcel(outputMap);                // Write Parcel objects to file
         System.out.println("Search results successfully written to text file.");
         System.out.println("Matching Parcels saved to object output file.");
+
     }
 
     /**
@@ -117,7 +115,7 @@ public class ParcelSearch {
 
                         // set propertyValue and set search bounds
                         inputParameters.setPropertyValue(Integer.valueOf(scan.nextLine()));
-                        inputParameters.setPropertyValueBounds();
+                        //inputParameters.setPropertyValueBounds();
                     }
                     else if(input.toLowerCase().equals("continue")){
                         break;
@@ -215,10 +213,15 @@ public class ParcelSearch {
             executeSearch(userParameters, bostonCommercialMap);
         }
 
+
         // display objects from object output file
         System.out.println("\nDisplaying Parcels from object output file:\n");
         for (Parcel p : ParcelIO.readParcel().values()){
             System.out.println(p.display());
         }
+
+
+
+        DBMain.displayDB(ParcelIO.readParcel());
     }
 }

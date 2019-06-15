@@ -7,9 +7,10 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ParcelSorter {
+public class ParcelFilter {
 
     private LinkedList<Parcel> parcelList = new LinkedList<>();
     private LinkedHashMap<String, Parcel> outputMap = new LinkedHashMap<>();
@@ -62,43 +63,32 @@ public class ParcelSorter {
     }
 
     /**
-     * Sorts input parcelMap Parcels by address
+     * Filters Parcels in parcelMap to find Parcels with
+     * propertyValue less than parameter upperPropertyValue and
+     * greater than lowerPropertyValue
+     * @param param: SearchParameters object
      * @param parcelMap: LinkedHashMap with PID,Parcel pairs
-     * @return outputMap: LinkedHashMap with sorted output values
+     * @return outputMap: LinkedHashMap with filtered output values
      */
-    protected LinkedHashMap<String, Parcel> sortAddress(LinkedHashMap<String, Parcel> parcelMap){
+    protected LinkedHashMap<String, Parcel> propertyValueFilter(SearchParameters param,
+                                                                LinkedHashMap<String, Parcel> parcelMap){
         parcelList.addAll(parcelMap.values());
-        parcelList.stream()
-                .sorted(Comparator.comparing(Parcel::getAddress))
-                .forEach(p -> outputMap.put(p.getParcelID(), p));
+
+        Predicate<Parcel> highValue = p -> (p.getPropertyValue() < param.getUpperPropertyValue());
+        Predicate<Parcel> lowValue = p -> (p.getPropertyValue() > param.getLowerPropertyValue());
+
+        LinkedList<Parcel> intermediateList = parcelList.stream()
+                .filter(highValue)
+                .filter(lowValue)
+                .collect(Collectors.toCollection(LinkedList::new));
+
+        for (Parcel p : intermediateList){
+            outputMap.put(p.getParcelID(), p);
+        }
+
         return outputMap;
     }
 
-    /**
-     * Sorts input parcelMap Parcels by propertyValue
-     * @param parcelMap: LinkedHashMap with PID,Parcel pairs
-     * @return outputMap: LinkedHashMap with sorted output values
-     */
-    protected LinkedHashMap<String, Parcel> sortPropertyValue(LinkedHashMap<String, Parcel> parcelMap){
-        parcelList.addAll(parcelMap.values());
-        parcelList.stream()
-                .sorted(Comparator.comparing(Parcel::getPropertyValue))
-                .forEach(p -> outputMap.put(p.getParcelID(), p));
-        return outputMap;
-    }
-
-    /**
-     * Sorts input parcelMap Parcels by landArea
-     * @param parcelMap: LinkedHashMap with PID,Parcel pairs
-     * @return outputMap: LinkedHashMap with sorted output values
-     */
-    protected LinkedHashMap<String, Parcel> sortLandArea(LinkedHashMap<String, Parcel> parcelMap){
-        parcelList.addAll(parcelMap.values());
-        parcelList.stream()
-                .sorted(Comparator.comparing(Parcel::getLandArea))
-                .forEach(p -> outputMap.put(p.getParcelID(), p));
-        return outputMap;
-    }
 
 
 }
