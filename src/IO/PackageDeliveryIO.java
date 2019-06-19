@@ -36,6 +36,7 @@ public class PackageDeliveryIO {
                 String origination = record.get(1);
                 String address = record.get(2);
                 String weight = record.get(3);
+                String pid = record.get(4);
 
                 // create new MailPackage object to store above values
                 MailPackage mp = new MailPackage();
@@ -44,6 +45,7 @@ public class PackageDeliveryIO {
                 mp.setShipper(shipper);
                 mp.setOrigination(origination);
                 mp.setAddress(address);
+                mp.setPID(pid);
 
                 // set Double variable
                 mp.setWeight(Double.parseDouble(weight));

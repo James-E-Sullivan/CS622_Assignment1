@@ -1,7 +1,7 @@
 package search;
 import custom_exceptions.ParcelSearchException;
 import IO.CSV_Input;
-import database.DBMain;
+import database.ParcelTableMain;
 import org.jetbrains.annotations.NotNull;
 import IO.ParcelIO;
 import parcels.Parcel;
@@ -222,9 +222,9 @@ public class ParcelSearch {
 
 
 
-        DBMain.displayDB(ParcelIO.readParcel());
+        ParcelTableMain.displayDB(ParcelIO.readParcel());
 
-        //DBMain.CSV_to_DB();
+        //ParcelTableMain.CSV_to_DB();
 
 
     }

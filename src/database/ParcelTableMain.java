@@ -6,7 +6,7 @@ import parcels.Parcel;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-public class DBMain {
+public class ParcelTableMain {
 
     private static void insertParcels(LinkedHashMap<String, Parcel> parcelMap){
         //ParcelTableSQL.insert("'0000000000'", "24 Beacon Street", "Commercial");

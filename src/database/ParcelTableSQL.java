@@ -156,8 +156,6 @@ public class ParcelTableSQL {
             ResultSetMetaData rsmd = results.getMetaData();
             int numberCols = rsmd.getColumnCount();
             for (int i=1; i<=numberCols; i++){
-                //print Column Names
-                //System.out.print(rsmd.getColumnLabel(i) + "\t\t");
                 System.out.format("%-40s", rsmd.getColumnLabel(i));
             }
 

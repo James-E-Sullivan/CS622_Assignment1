@@ -21,7 +21,7 @@ public class PackageTableSQL {
         try(Statement myStmt = ConnectionFactory.getConnectionToDerby().createStatement()){
             myStmt.execute("drop table " + tableName);
             myStmt.execute("create table " + tableName + "(shipper varchar(15), origination varchar(100)," +
-                    " address varchar(100), weight double )");
+                    " address varchar(100), weight double, PID varchar(15) )");
             System.out.println("Created Package Table");
         }
         catch (SQLException sqlExcept){
@@ -35,7 +35,7 @@ public class PackageTableSQL {
                 mp.getShipper() + "','" +
                 mp.getOrigination() + "','" +
                 mp.getAddress() + "'," +
-                mp.getWeight() + ")";
+                mp.getWeight() + ",'" +  mp.getPID() +  "')";
 
         try (Statement myStmt = ConnectionFactory.getConnectionToDerby().createStatement()){
             myStmt.execute(insertString);
@@ -56,12 +56,11 @@ public class PackageTableSQL {
             ResultSetMetaData rsmd = results.getMetaData();
             int numberCols = rsmd.getColumnCount();
             for (int i=1; i<=numberCols; i++){
-                //print Column Names
-                //System.out.print(rsmd.getColumnLabel(i) + "\t\t");
                 System.out.format("%-40s", rsmd.getColumnLabel(i));
             }
 
             System.out.println("\n----------------------------------------" +
+                    "----------------------------------------" +
                     "----------------------------------------" +
                     "----------------------------------------" +
                     "----------------------------------------");
@@ -71,8 +70,9 @@ public class PackageTableSQL {
                 String origin = results.getString(2);
                 String address = results.getString(3);
                 Double weight = results.getDouble(4);
+                String pid = results.getString(5);
 
-                System.out.format("%-40s%-40s%-40s%-40.2f%n", shipper, origin, address, weight);
+                System.out.format("%-40s%-40s%-40s%-40.2f%-40s%n", shipper, origin, address, weight, pid);
             }
 
         }
