@@ -1,6 +1,6 @@
 package search;
 import custom_exceptions.ParcelSearchException;
-import IO.CSV_Input;
+import IO.Parcel_CSV_Input;
 import database.ParcelTableMain;
 import org.jetbrains.annotations.NotNull;
 import IO.ParcelIO;
@@ -188,7 +188,7 @@ public class ParcelSearch {
     public static void main(String[] args){
 
         // Read parcel info from CSV file and store info in HashMaps
-        CSV_Input bostonParcels = new CSV_Input();
+        Parcel_CSV_Input bostonParcels = new Parcel_CSV_Input();
         bostonParcels.read_CSV_File();              // reads commercial and residential parcel info into HashMaps
         LinkedHashMap<String, Parcel> bostonResidentialMap = bostonParcels.getResidentialMap();
         LinkedHashMap<String, Parcel> bostonCommercialMap = bostonParcels.getCommercialMap();
@@ -213,19 +213,11 @@ public class ParcelSearch {
             executeSearch(userParameters, bostonCommercialMap);
         }
 
-
         // display objects from object output file
         System.out.println("\nDisplaying Parcels from object output file:\n");
         for (Parcel p : ParcelIO.readParcel().values()){
             System.out.println(p.display());
         }
-
-
-
-        ParcelTableMain.displayDB(ParcelIO.readParcel());
-
-        //ParcelTableMain.CSV_to_DB();
-
 
     }
 }

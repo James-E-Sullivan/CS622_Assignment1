@@ -10,7 +10,7 @@ public class PackageAndParcel {
 
     private static void aggregateSelection(){
 
-        String query = "select property_value, shipper from parcels, packages where parcels.PID = packages.PID";
+        String query = "select property_value, shipper, origination from parcels, packages where parcels.PID = packages.PID";
 
         try(Statement myStmt = ConnectionFactory.getConnectionToDerby().createStatement();
             ResultSet results = myStmt.executeQuery(query)){
@@ -22,13 +22,15 @@ public class PackageAndParcel {
             }
 
             System.out.println("\n----------------------------------------" +
+                    "----------------------------------------" +
                     "----------------------------------------");
 
             while(results.next()){
                 String pv = results.getString(1);
                 String shipper = results.getString(2);
+                String origination = results.getString(3);
 
-                System.out.format("%-40s%-40s%n", pv, shipper);
+                System.out.format("%-40s%-40s%-40s%n", pv, shipper, origination);
             }
         }
         catch (SQLException sqlExcept){

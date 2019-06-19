@@ -11,11 +11,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 // class with methods for handling CSV file input
-public class CSV_Input {
+public class Parcel_CSV_Input {
 
     // Constant used for CSV file
     final private String CSV_INPUT_FILE = "resources/Parcels_2016_Data_Full.csv";
@@ -28,50 +27,7 @@ public class CSV_Input {
     private LinkedHashMap<String, Parcel> commercialMap = new LinkedHashMap<>();
 
     // default constructor
-    public CSV_Input(){}
-
-    // closes Reader
-    public void inputCleanup(){
-        try{
-            in.close();
-        }
-        catch (IOException ex){
-            ex.printStackTrace();
-        }
-    }
-
-    /**
-     * Opens CSV_Input_File and returns an Iterable object of
-     * CSV records. To be used for manipulation and data transfer
-     * by other classes.
-     * @return records: Iterable object of CSVRecord
-     */
-    public Iterable<CSVRecord> getCSVRecords(){
-
-        try{
-            // opens CSV file and stores it in iterable CSVRecord object, records
-            in = new FileReader(CSV_INPUT_FILE);
-            Iterable<CSVRecord> records = CSVFormat.DEFAULT
-                    .withFirstRecordAsHeader()
-                    .parse(in);
-
-            return records;
-        }
-
-        catch (FileNotFoundException ex){
-            ex.printStackTrace();
-        }
-        catch (IOException ex){
-            System.err.println("Caught IOException while opening " + CSV_INPUT_FILE +
-                    ex.getMessage());
-            ex.printStackTrace();
-        }
-
-        return null;
-    }
-
-
-
+    public Parcel_CSV_Input(){}
 
 
     /**

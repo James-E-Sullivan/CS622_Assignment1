@@ -7,6 +7,8 @@ import java.sql.SQLException;
 public class ConnectionFactory {
 
     private static Connection conn;
+
+    // gets connection to Apache Derby
     public static Connection getConnectionToDerby(){
         if(conn == null){
             try{
@@ -22,6 +24,7 @@ public class ConnectionFactory {
         return conn;
     }
 
+
     public static void shutdownDerby(){
         try{
             if (conn != null){
@@ -30,7 +33,7 @@ public class ConnectionFactory {
             }
         }
         catch (SQLException sqlExcept){
-            //sqlExcept.printStackTrace();
+            sqlExcept.printStackTrace();
         }
     }
 

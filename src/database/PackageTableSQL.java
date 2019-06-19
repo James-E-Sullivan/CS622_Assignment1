@@ -9,13 +9,18 @@ import java.sql.Statement;
 
 public class PackageTableSQL {
 
-    // default constructor
+    /**
+     * Default constructor
+     * @param name: Name of Package table
+     */
     public PackageTableSQL(String name){tableName = name;}
 
-    private static Statement stmt;
-
+    // Package table name variable
     private static String tableName;
 
+    /**
+     * Initialize new Package table
+     */
     public void init(){
 
         try(Statement myStmt = ConnectionFactory.getConnectionToDerby().createStatement()){
@@ -29,6 +34,10 @@ public class PackageTableSQL {
         }
     }
 
+    /**
+     * Inserts a MailPackage object into the Package table
+     * @param mp: MailPackage object
+     */
     public void insert (MailPackage mp){
 
         String insertString = "insert into " + tableName + " values ('" +
@@ -46,6 +55,9 @@ public class PackageTableSQL {
 
     }
 
+    /**
+     * Selects all values from the Package table and outputs to console
+     */
     public void select(){
 
         String selectionString = "select * from " + tableName;

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 
-public class PackageDeliveryIO {
+public class Package_CSV_Input {
 
     // constant used for CSV file
     final private String PACKAGE_INPUT_FILE = "resources/Shipment_Table.csv";
@@ -19,16 +19,23 @@ public class PackageDeliveryIO {
     private ArrayList<MailPackage> packageList = new ArrayList<>();
 
     // default constructor
-    public PackageDeliveryIO(){}
+    public Package_CSV_Input(){}
 
+    /**
+     * Reads data from CSV file into MailPackage objects.
+     * Each new MailPackage object added to packageList.
+     */
     public void read_CSV_File(){
 
         try{
+
+            // open Package_Input_File csv to read CSV records
             Reader in = new FileReader(PACKAGE_INPUT_FILE);
             Iterable<CSVRecord> records = CSVFormat.DEFAULT
                     .withFirstRecordAsHeader()
                     .parse(in);
 
+            // iterate through records in csv file
             for (CSVRecord record : records){
 
                 // obtain string values from applicable columns

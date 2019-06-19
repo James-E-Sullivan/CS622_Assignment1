@@ -1,6 +1,6 @@
 package database;
 
-import IO.PackageDeliveryIO;
+import IO.Package_CSV_Input;
 import mail_packages.MailPackage;
 
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ public class PackageTableMain {
 
     public static void Package_DB_Output(){
 
-        PackageDeliveryIO packageData = new PackageDeliveryIO();
+        Package_CSV_Input packageData = new Package_CSV_Input();
 
         PackageTableSQL packageDB = new PackageTableSQL("Packages");
 

@@ -35,7 +35,12 @@ public class ParcelTableSQL {
         // create table
         try(Statement myStmt = ConnectionFactory.getConnectionToDerby().createStatement()){
             myStmt.execute("drop table " + tableName);
-            myStmt.execute("create table " + tableName + "(PID varchar(10)," + " address varchar(100)," + " type varchar(100)," + " property_value integer," + " land_area integer) ");
+            myStmt.execute("create table " + tableName +
+                    "(PID varchar(10)," +
+                    " address varchar(100)," +
+                    " type varchar(100)," +
+                    " property_value integer," +
+                    " land_area integer) ");
             System.out.println("Created Parcel Table");
         }
         catch (SQLException sqlExcept){
