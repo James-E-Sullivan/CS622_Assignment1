@@ -223,5 +223,9 @@ public class ParcelSearch {
 
 
         DBMain.displayDB(ParcelIO.readParcel());
+
+        //DBMain.CSV_to_DB();
+
+
     }
 }

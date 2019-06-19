@@ -1,29 +1,30 @@
 package database;
 
+import IO.CSV_Input;
 import parcels.Parcel;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class DBMain {
 
     private static void insertParcels(LinkedHashMap<String, Parcel> parcelMap){
-        //DBInput.insert("'0000000000'", "24 Beacon Street", "Commercial");
+        //ParcelTableSQL.insert("'0000000000'", "24 Beacon Street", "Commercial");
 
         for (Parcel p : parcelMap.values()){
-            DBInput.insert(p.getParcelID(), p.getAddress(), p.getType());
+            ParcelTableSQL.insert(p.getParcelID(), p.getAddress(), p.getType());
         }
     }
 
     private static void selectParcels(){
-        DBInput.select();
+        ParcelTableSQL.selectAll();
     }
 
     public static void displayDB(LinkedHashMap<String, Parcel> parcelMap) {
 
         try{
             System.out.println("*** Initializing allparcels table");
-            DBInput.init();
+            ParcelTableSQL.init();
 
             System.out.println("\n*** Insert records into allparcels table");
             insertParcels(parcelMap);
@@ -39,6 +40,57 @@ public class DBMain {
         }
 
     }
+
+
+    public static void CSV_to_DB(){
+
+        CSV_Input parcelData = new CSV_Input();
+
+        ParcelTableSQL parcelDB = new ParcelTableSQL("Parcels");
+
+
+        try{
+
+
+            // obtain iterable records from csv file
+            System.out.println("*** Initializing Parcel Table");
+            //records = parcelData.getCSVRecords();
+
+            ArrayList<Parcel> allParcels = parcelData.readParcelFromFile();
+
+            // initialize parcel table
+            parcelDB.initFullParcelTable();
+
+
+            for (Parcel p : allParcels){
+                parcelDB.insertParcelObject(p);
+            }
+
+            parcelDB.selectByPropertyValue(100000000);
+
+
+
+        }
+        catch (NumberFormatException ex){
+            ex.printStackTrace();
+        }
+        finally{
+            ConnectionFactory.shutdownDerby();
+        }
+
+
+    }
+
+
+
+    // for testing
+    public static void main(String[] args) {
+
+        CSV_to_DB();
+
+    }
+
+
 
 
 

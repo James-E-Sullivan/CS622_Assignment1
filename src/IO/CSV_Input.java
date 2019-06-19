@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -19,12 +20,59 @@ public class CSV_Input {
     // Constant used for CSV file
     final private String CSV_INPUT_FILE = "resources/Parcels_2016_Data_Full.csv";
 
+    // creates Reader object to read csv file
+    Reader in;
+
     // HashMaps for Res & Comm Parcels, with PID/Parcel pairs
     private LinkedHashMap<String, Parcel> residentialMap = new LinkedHashMap<>();
     private LinkedHashMap<String, Parcel> commercialMap = new LinkedHashMap<>();
 
     // default constructor
     public CSV_Input(){}
+
+    // closes Reader
+    public void inputCleanup(){
+        try{
+            in.close();
+        }
+        catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Opens CSV_Input_File and returns an Iterable object of
+     * CSV records. To be used for manipulation and data transfer
+     * by other classes.
+     * @return records: Iterable object of CSVRecord
+     */
+    public Iterable<CSVRecord> getCSVRecords(){
+
+        try{
+            // opens CSV file and stores it in iterable CSVRecord object, records
+            in = new FileReader(CSV_INPUT_FILE);
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT
+                    .withFirstRecordAsHeader()
+                    .parse(in);
+
+            return records;
+        }
+
+        catch (FileNotFoundException ex){
+            ex.printStackTrace();
+        }
+        catch (IOException ex){
+            System.err.println("Caught IOException while opening " + CSV_INPUT_FILE +
+                    ex.getMessage());
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+
+
 
     /**
      * Converts String numbers into Integers
@@ -48,6 +96,68 @@ public class CSV_Input {
 
         return inputInteger;
     }
+
+
+    public ArrayList<Parcel> readParcelFromFile(){
+
+        ArrayList<Parcel> allParcels = new ArrayList<>();
+
+        try{
+            // opens CSV file and stores it in iterable CSVRecord object, records
+            Reader in = new FileReader(CSV_INPUT_FILE);
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT
+                    .withFirstRecordAsHeader()
+                    .parse(in);
+
+            // iterates through records
+            for(CSVRecord record : records) {
+
+                // obtain string values from applicable columns
+                String PID = record.get(3);
+                String address = record.get(58);
+                String type = record.get(11);
+                String propertyValue = record.get(19).replaceAll("\\s+", "");
+                String landArea = record.get(21).replaceAll("\\s+", "");
+
+
+                //Create ResidentialParcel object
+                ResidentialParcel rp = new ResidentialParcel();
+
+                // obtain string values for residential-specific columns
+                String livingArea = record.get(25).replaceAll("\\s+", "");
+                String bedrooms = record.get(32).replaceAll("\\s+", "");
+
+                //set ResidentialParcel String variables
+                rp.setParcelID(PID);
+                rp.setAddress(address);
+                rp.setType(type);
+
+                // Set Residential Parcel Integer variables
+                rp.setPropertyValue(inputToInteger(propertyValue));
+                rp.setLandArea(inputToInteger(landArea));
+                rp.setLivingArea(inputToInteger(livingArea));
+                rp.setBedrooms(inputToInteger(bedrooms));
+
+                // add new ResidentialParcel object to residentialMap
+                allParcels.add(rp);
+            }
+            // close CSV file
+            in.close();
+        }
+        catch (FileNotFoundException ex){
+            ex.printStackTrace();
+        }
+        catch (IOException ex){
+            System.err.println("Caught IOException while opening " + CSV_INPUT_FILE +
+                    ex.getMessage());
+            ex.printStackTrace();
+        }
+
+        return allParcels;
+
+    }
+
+
 
     /**
      * Reads Boston Parcel Information CSV.
@@ -77,7 +187,7 @@ public class CSV_Input {
                 // creates new ResidentialParcel object, sets values, and adds it to residentialMap
                 if(type.contains("Residential")){
 
-                    //Create ResidentialParcel object (removed unnecessary downcasting)
+                    //Create ResidentialParcel object
                     ResidentialParcel rp = new ResidentialParcel();
 
                     // obtain string values for residential-specific columns
