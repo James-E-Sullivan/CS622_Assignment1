@@ -1,6 +1,8 @@
 package mail_packages;
 
-public class MailPackage {
+import java.io.Serializable;
+
+public class MailPackage implements Serializable {
 
     // Class variables
     protected String shipper;

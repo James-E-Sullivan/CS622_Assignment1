@@ -1,5 +1,6 @@
 package Concurrency;
 
+import IO.PackageIO;
 import IO.Package_CSV_Input;
 import mail_packages.MailPackage;
 
@@ -14,6 +15,7 @@ public class PackageInputRunnable implements Runnable{
         Package_CSV_Input packageInput = new Package_CSV_Input();
         packageInput.read_CSV_File();
         ArrayList<MailPackage> packageList = packageInput.getPackageList();
+        PackageIO.writePackage(packageList);
 
         System.out.println("\nEnding Package CSV Thread\n");
     }
