@@ -184,9 +184,7 @@ public class ParcelSearch {
         }
     }
 
-
-    public static void main(String[] args){
-
+    public static void searchIO(){
         // Read parcel info from CSV file and store info in HashMaps
         Parcel_CSV_Input bostonParcels = new Parcel_CSV_Input();
         bostonParcels.read_CSV_File();              // reads commercial and residential parcel info into HashMaps
@@ -218,6 +216,10 @@ public class ParcelSearch {
         for (Parcel p : ParcelIO.readParcel().values()){
             System.out.println(p.display());
         }
+    }
 
+
+    public static void main(String[] args){
+        searchIO();
     }
 }

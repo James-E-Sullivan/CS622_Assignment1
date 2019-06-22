@@ -2,12 +2,11 @@ package IO;
 
 import parcels.Parcel;
 import java.io.*;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class ParcelIO {
 
-    final private static String OBJECT_FILE = "resources/Object_Output.dat";
+    final private static String PARCEL_FILE = "resources/Parcel_Output.dat";
 
     /**
      * Write Parcel objects from a LinkedHashMap collection
@@ -17,7 +16,7 @@ public class ParcelIO {
     public static void writeParcel(LinkedHashMap<String, Parcel> parcelMap){
 
         try {
-            ObjectOutputStream outfile = new ObjectOutputStream(new FileOutputStream(OBJECT_FILE));
+            ObjectOutputStream outfile = new ObjectOutputStream(new FileOutputStream(PARCEL_FILE));
 
             for (Parcel p : parcelMap.values()){
                 outfile.writeObject(p);
@@ -35,14 +34,14 @@ public class ParcelIO {
     }
 
     /**
-     * Read Parcel objects from a file (OBJECT_FILE)
+     * Read Parcel objects from a file (PARCEL_FILE)
      * @return inputMap: LinkedHashMap with PID,Parcel pairs
      */
     public static LinkedHashMap<String, Parcel> readParcel(){
         LinkedHashMap<String, Parcel> inputMap = new LinkedHashMap<>();
 
         try {
-            ObjectInputStream infile = new ObjectInputStream(new FileInputStream(OBJECT_FILE));
+            ObjectInputStream infile = new ObjectInputStream(new FileInputStream(PARCEL_FILE));
 
             while (true){
                 Parcel inParcel = (Parcel) infile.readObject();
@@ -50,7 +49,7 @@ public class ParcelIO {
             }
         }
         catch(EOFException ex){
-            System.out.println("EOF reached in Object_Output.dat");
+            System.out.println("EOF reached in Parcel_Output.dat");
         }
         catch(FileNotFoundException ex){
             System.out.println("FileNotFoundException");
