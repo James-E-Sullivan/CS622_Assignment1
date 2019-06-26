@@ -22,14 +22,18 @@ public class Concurrent_CSV_Input {
         Thread packageThread = new Thread(packageRun);
         Thread searchThread = new Thread(searchRun);
 
+        System.out.println("\nStarting Parcel & Package I/O Threads\n");
+
         // start threads
-        //parcelThread.start();
+        parcelThread.start();
         packageThread.start();
-        searchThread.start();
 
         // join threads to main
-        //parcelThread.join();
+        parcelThread.join();
         packageThread.join();
+
+        // start searchThread after Parcel_Output.dat has been populated
+        searchThread.start();
         searchThread.join();
 
         // main thread: obtain Parcel and Package objects from .dat files
@@ -43,12 +47,12 @@ public class Concurrent_CSV_Input {
             for (MailPackage mp : packageFileList){
                 if (p.getParcelID().equals(mp.getPID())){
                     matchCount++;
-                    System.out.println("Matching Parcel (" + matchCount + "): " + p.getAddress());
+                    System.out.println("\nMatching Parcel (" + matchCount + "): " + p.getAddress());
                 }
             }
         }
 
-        System.out.println("Total number of matches: " + matchCount);
+        System.out.println("\nTotal number of matches: " + matchCount);
 
         System.out.println("\nEnd main thread\n");
 

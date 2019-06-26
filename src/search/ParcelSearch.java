@@ -148,11 +148,20 @@ public class ParcelSearch {
 
 
     public static void searchIO(){
-        // Read parcel info from CSV file and store info in HashMaps
-        Parcel_CSV_Input bostonParcels = new Parcel_CSV_Input();
-        bostonParcels.read_CSV_File();              // reads commercial and residential parcel info into HashMaps
-        LinkedHashMap<String, Parcel> bostonResidentialMap = bostonParcels.getResidentialMap();
-        LinkedHashMap<String, Parcel> bostonCommercialMap = bostonParcels.getCommercialMap();
+
+        LinkedHashMap<String, Parcel> bostonResidentialMap = new LinkedHashMap<>();
+        LinkedHashMap<String, Parcel> bostonCommercialMap = new LinkedHashMap<>();
+
+        // Read in parcels from Parcel_Output.dat
+        LinkedHashMap<String, Parcel> allParcels = ParcelIO.readParcel();
+        for (Parcel p : allParcels.values()){
+
+            if (p.getType().toLowerCase().contains("residential")){
+                bostonResidentialMap.put(p.getParcelID(), p);
+            } else if (p.getType().toLowerCase().contains("commercial")){
+                bostonCommercialMap.put(p.getParcelID(), p);
+            }
+        }
 
         // obtain search parameters from user
         SearchParameters userParameters = promptUser();
@@ -174,15 +183,19 @@ public class ParcelSearch {
             executeSearch(userParameters, bostonCommercialMap);
         }
 
+        /*
         // display objects from object output file
         System.out.println("\nDisplaying Parcels from object output file:\n");
         for (Parcel p : ParcelIO.readParcel().values()){
             System.out.println(p.display());
         }
+
+         */
     }
 
 
     public static void main(String[] args){
         searchIO();
+        //ParcelIO.testParcelIO();
     }
 }

@@ -25,6 +25,7 @@ public class Parcel_CSV_Input {
     // HashMaps for Res & Comm Parcels, with PID/Parcel pairs
     private LinkedHashMap<String, Parcel> residentialMap = new LinkedHashMap<>();
     private LinkedHashMap<String, Parcel> commercialMap = new LinkedHashMap<>();
+    private LinkedHashMap<String, Parcel> parcelMap = new LinkedHashMap<>();
 
     // default constructor
     public Parcel_CSV_Input(){}
@@ -162,7 +163,8 @@ public class Parcel_CSV_Input {
                     rp.setBedrooms(inputToInteger(bedrooms));
 
                     // add new ResidentialParcel object to residentialMap
-                    residentialMap.put(rp.getParcelID(), rp);
+                    //residentialMap.put(rp.getParcelID(), rp);
+                    parcelMap.put(rp.getParcelID(), rp);
                 }
 
                 // creates new CommercialParcel object, sets values, adds it to CommercialMap
@@ -179,7 +181,8 @@ public class Parcel_CSV_Input {
                     cp.setLandArea(inputToInteger(landArea));
 
                     // add new CommercialParcel object to commercialMap
-                    commercialMap.put(cp.getParcelID(), cp);
+                    //commercialMap.put(cp.getParcelID(), cp);
+                    parcelMap.put(cp.getParcelID(), cp);
                 }
             }
 
@@ -198,8 +201,9 @@ public class Parcel_CSV_Input {
     }
 
     // accessor methods for Parcel HashMaps
-    public LinkedHashMap<String, Parcel> getResidentialMap(){return residentialMap;}
-    public LinkedHashMap<String, Parcel> getCommercialMap(){return commercialMap;}
+    //public LinkedHashMap<String, Parcel> getResidentialMap(){return residentialMap;}
+    //public LinkedHashMap<String, Parcel> getCommercialMap(){return commercialMap;}
+    public LinkedHashMap<String, Parcel> getParcelMap(){return parcelMap;}
 
 
 }

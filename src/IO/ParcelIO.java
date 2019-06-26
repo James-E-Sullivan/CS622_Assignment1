@@ -13,7 +13,7 @@ public class ParcelIO {
      * into a file that can be saved for later.
      * @param parcelMap: LinkedHashMap with PID,Parcel pairs
      */
-    public static void writeParcel(LinkedHashMap<String, Parcel> parcelMap){
+    public synchronized static void writeParcel(LinkedHashMap<String, Parcel> parcelMap){
 
         try {
             ObjectOutputStream outfile = new ObjectOutputStream(new FileOutputStream(PARCEL_FILE));
@@ -37,7 +37,7 @@ public class ParcelIO {
      * Read Parcel objects from a file (PARCEL_FILE)
      * @return inputMap: LinkedHashMap with PID,Parcel pairs
      */
-    public static LinkedHashMap<String, Parcel> readParcel(){
+    public synchronized static LinkedHashMap<String, Parcel> readParcel(){
         LinkedHashMap<String, Parcel> inputMap = new LinkedHashMap<>();
 
         try {

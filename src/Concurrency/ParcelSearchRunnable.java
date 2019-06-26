@@ -6,10 +6,10 @@ public class ParcelSearchRunnable implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("\nStarting Parcel Search Thread\n");
+        search();
+    }
 
+    public void search(){
         ParcelSearch.searchIO();
-
-        System.out.println("\nEnding Parcel Search Thread\n");
     }
 }
