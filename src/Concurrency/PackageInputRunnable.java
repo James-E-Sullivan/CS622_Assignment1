@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class PackageInputRunnable implements Runnable{
 
+    // Read package info from csv & write MailPackage objects to output file
+
     @Override
     public void run() {
         Package_CSV_Input packageInput = new Package_CSV_Input();

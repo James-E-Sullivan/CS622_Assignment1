@@ -13,6 +13,10 @@ public class ParcelInputRunnable implements Runnable{
         rwParcels();
     }
 
+    /**
+     * Reads Parcel info from csv file
+     * Writes Parcels to Parcel object output file
+     */
     private void rwParcels(){
         Parcel_CSV_Input parcelInput = new Parcel_CSV_Input();
         parcelInput.read_CSV_File();

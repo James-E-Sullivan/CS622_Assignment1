@@ -183,19 +183,6 @@ public class ParcelSearch {
             executeSearch(userParameters, bostonCommercialMap);
         }
 
-        /*
-        // display objects from object output file
-        System.out.println("\nDisplaying Parcels from object output file:\n");
-        for (Parcel p : ParcelIO.readParcel().values()){
-            System.out.println(p.display());
-        }
-
-         */
     }
 
-
-    public static void main(String[] args){
-        searchIO();
-        //ParcelIO.testParcelIO();
-    }
 }
