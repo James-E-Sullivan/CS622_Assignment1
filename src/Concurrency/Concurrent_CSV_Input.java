@@ -23,12 +23,12 @@ public class Concurrent_CSV_Input {
         Thread searchThread = new Thread(searchRun);
 
         // start threads
-        parcelThread.start();
+        //parcelThread.start();
         packageThread.start();
         searchThread.start();
 
         // join threads to main
-        parcelThread.join();
+        //parcelThread.join();
         packageThread.join();
         searchThread.join();
 
@@ -51,7 +51,6 @@ public class Concurrent_CSV_Input {
         System.out.println("Total number of matches: " + matchCount);
 
         System.out.println("\nEnd main thread\n");
-
 
     }
 

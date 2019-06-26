@@ -7,7 +7,7 @@ public class Runnable2 implements Runnable {
 
         System.out.println("\nStart Thread 2\n");
 
-        for(int i=200; i<300; i++){
+        for(int i=2000; i<3000; i++){
             System.out.println(i);
         }
 

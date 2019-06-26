@@ -37,6 +37,7 @@ public class ParcelSearch {
                 continue;
             }
 
+
             // if address parameter specified and it doesn't match given address, continue
             else if((param.getAddress() != null) &&
                     !(p.getAddress().toLowerCase().contains(param.getAddress().toLowerCase()))){
@@ -49,6 +50,9 @@ public class ParcelSearch {
             // add propertyValue filters for outputMap
             if (param.getUpperPropertyValue() != null && param.getLowerPropertyValue() != null){
                 outputMap = searchFilter.propertyValueFilter(param, unfilteredMap);
+            }
+            else {
+                outputMap = unfilteredMap;
             }
         }
 
@@ -90,14 +94,16 @@ public class ParcelSearch {
                 continue;   // Go to beginning of while loop to re-prompt user
             }
 
+
             // loop to obtain search-narrowing parameters
             while (true){
 
                 System.out.println("Please choose one of the following parameters to narrow your search." +
-                        " Otherwise, enter 'continue'.");
+                        " Otherwise, enter '4' or 'Continue'.");
                 System.out.println("    1. Parcel ID");
                 System.out.println("    2. Address");
                 System.out.println("    3. Property Value");
+                System.out.println("    4. Continue");
                 input = scan.nextLine();        // get user response
 
                 // update parcelID, address, and/or propertyValue search parameters
@@ -115,9 +121,12 @@ public class ParcelSearch {
 
                         // set propertyValue and set search bounds
                         inputParameters.setPropertyValue(Integer.valueOf(scan.nextLine()));
-                        //inputParameters.setPropertyValueBounds();
+
+                        // Basic TEST
+                        System.out.println("Upper PV: " + inputParameters.getUpperPropertyValue());
+                        System.out.println("Lower PV: " + inputParameters.getLowerPropertyValue());
                     }
-                    else if(input.toLowerCase().equals("continue")){
+                    else if(input.equals("4") | input.toLowerCase().equals("continue")){
                         break;
                     }
                     else{
@@ -137,52 +146,6 @@ public class ParcelSearch {
         return inputParameters;      // return inputParameters for search
     }
 
-    /**
-     * Outputs to console the greatest values for PID, Address, Property Value, Land Area
-     * living area (residential only) and bedrooms (residential only).
-     * @param parcelMap: HashMap with PID/Parcel as Key/Value pairs
-     */
-    private static void findGreatestValues(@NotNull HashMap<String, Parcel> parcelMap){
-
-        // create new Generic Parcel Comparator
-        ParcelComparator<String> stringComp = new ParcelComparator<>();
-        ParcelComparator<Integer> intComp = new ParcelComparator<>();
-
-        // initialize greatest variable values to lowest possible value
-        String greatestPID = "";
-        String greatestAddress = "";
-        Integer greatestPropertyValue = 0;
-        Integer greatestLandArea = 0;
-        Integer greatestLivingArea = 0;
-        Integer greatestBedrooms = 0;
-
-        boolean residential = false;
-
-        // iterate through parcelMap to obtain greatest values
-        for (Parcel p : parcelMap.values()){
-            greatestPID = stringComp.highValue(p.getParcelID(), greatestPID);
-            greatestAddress = stringComp.highValue(p.getAddress(), greatestAddress);
-            greatestPropertyValue = intComp.highValue(p.getPropertyValue(), greatestPropertyValue);
-            greatestLandArea = intComp.highValue(p.getLandArea(), greatestLandArea);
-
-            // determine living area and bedroom values only if Parcel is residential
-            if (p instanceof ResidentialParcel){
-                residential = true;
-                greatestLivingArea = intComp.highValue(((ResidentialParcel) p).getLivingArea(), greatestLivingArea);
-                greatestBedrooms = intComp.highValue(((ResidentialParcel) p).getBedrooms(), greatestBedrooms);
-            }
-        }
-
-        // prints greatest values to console
-        System.out.println("\nGreatest PID Value: " + greatestPID);
-        System.out.println("Greatest Address Value: " + greatestAddress);
-        System.out.println("Greatest Property Value: " + greatestPropertyValue);
-        System.out.println("Greatest Land Area: " + greatestLandArea);
-        if (residential){
-            System.out.println("Greatest Living Area: " + greatestLivingArea);
-            System.out.println("Greatest Number of Bedrooms: " + greatestBedrooms);
-        }
-    }
 
     public static void searchIO(){
         // Read parcel info from CSV file and store info in HashMaps

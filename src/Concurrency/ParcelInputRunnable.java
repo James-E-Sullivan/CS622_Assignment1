@@ -4,8 +4,6 @@ import IO.Parcel_CSV_Input;
 
 public class ParcelInputRunnable implements Runnable{
 
-
-
     @Override
     public void run() {
         System.out.println("\nStarting Parcel CSV Thread\n");
